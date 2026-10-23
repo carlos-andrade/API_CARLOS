@@ -4,6 +4,25 @@
 |---|---|
 | **ID** | API-CARLOS-SCOPE-001 |
 | **Projeto** | API_CARLOS |
+| **Repositório** | [carlos-andrade/API_CARLOS](https://github.com/carlos-andrade/API_CARLOS) |
+| **Tipo documental** | CARTA DE ÂMBITO |
+| **Fase** | F0 — Definição de âmbito e governação |
+| **Estado** | EM_REVISAO |
+| **Versão** | 0.1.0 |
+| **SHA-256 (conteúdo canónico)** | 3edab1adf74aa2b6f8b262ab672a3e3a37d436e7fd668051c8a64ee5c96c5d2e |
+| **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
+| **Data de criação** | 2026-10-23 |
+| **Data de atualização** | 2026-10-23 |
+| **Responsável** | Carlos Andrade |
+| **Aprovador** | Pendente de aprovação formal |
+| **Origem** | Artefacto do projeto API_CARLOS; atualização de conformidade documental |
+| **Autoridade superior** | [Norma GOV-CAB-NORMA-001 v1.0.3](https://github.com/carlos-andrade/GOVERNANCA/blob/main/CABE%C3%87ALHO/NORMA-CABECALHO-PADRAO.md) |
+| **Cadeia de autoridade** | PROMPTS → CARTAS → LAYOUT ÚNICO → CÓDIGO |
+
+| Campo | Valor |
+|---|---|
+| **ID** | API-CARLOS-SCOPE-001 |
+| **Projeto** | API_CARLOS |
 | **Tipo documental** | CARTA DE ÂMBITO |
 | **Fase** | F0 — Definição de âmbito e governação |
 | **Estado** | EM_REVISAO |
