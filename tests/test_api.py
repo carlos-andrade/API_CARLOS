@@ -9,6 +9,7 @@
 # Cadeia de autoridade: PROMPTS → CARTAS → LAYOUT ÚNICO → CÓDIGO
 
 from fastapi.testclient import TestClient
+
 from app.main import app
 
 
