@@ -10,7 +10,8 @@
 
 """Aplicação HTTP da API_CARLOS."""
 from contextlib import asynccontextmanager
-from fastapi import Depends, FastAPI, HTTPException
+
+from fastapi import Depends, FastAPI
 from pydantic import BaseModel, Field, HttpUrl
 
 from app.config import settings
