@@ -9,7 +9,7 @@
 | **Fase** | I3 — Núcleo técnico inicial |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.1.0 |
-| **SHA-256 (conteúdo canónico)** | a54e9448af9d2bbf893a2995b674445ed497244f42f4f3ed4dbecfadab89e62c |
+| **SHA-256 (conteúdo canónico)** | 9dc6b0f2b9dd290d231df1f4db53d5f5533f613d752361d0698bceb80eaed8aa |
 | **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-23 |
@@ -17,20 +17,6 @@
 | **Aprovador** | Pendente de aprovação formal |
 | **Origem** | Artefacto do projeto API_CARLOS; atualização de conformidade documental |
 | **Autoridade superior** | [Norma GOV-CAB-NORMA-001 v1.0.3](https://github.com/carlos-andrade/GOVERNANCA/blob/main/CABE%C3%87ALHO/NORMA-CABECALHO-PADRAO.md) |
-| **Cadeia de autoridade** | PROMPTS → CARTAS → LAYOUT ÚNICO → CÓDIGO |
-
-| Campo | Valor |
-|---|---|
-| **ID** | API-CARLOS-README-001 |
-| **Projeto** | API_CARLOS |
-| **Tipo documental** | ÍNDICE DO PROJETO |
-| **Fase** | I3 — Núcleo técnico inicial |
-| **Estado** | PROTÓTIPO EM REVISÃO |
-| **Versão** | 0.1.0 |
-| **Data de atualização** | 2026-10-23 |
-| **Responsável** | Carlos Andrade |
-| **Aprovador** | Aprovação formal dos artefactos pendente |
-| **Governação de referência** | https://github.com/carlos-andrade/GOVERNANCA |
 | **Cadeia de autoridade** | PROMPTS → CARTAS → LAYOUT ÚNICO → CÓDIGO |
 
 ## Missão
