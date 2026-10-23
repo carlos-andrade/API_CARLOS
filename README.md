@@ -5,8 +5,8 @@
 | **ID** | API-CARLOS-README-001 |
 | **Projeto** | API_CARLOS |
 | **Tipo documental** | ÍNDICE DO PROJETO |
-| **Fase** | F0 — Definição de âmbito e governação |
-| **Estado** | EM_REVISAO |
+| **Fase** | I3 — Núcleo técnico inicial |
+| **Estado** | PROTÓTIPO EM REVISÃO |
 | **Versão** | 0.1.0 |
 | **Data de atualização** | 2026-10-23 |
 | **Responsável** | Carlos Andrade |
@@ -31,20 +31,36 @@ Desenvolver uma API modular para descobrir, extrair, normalizar, validar e dispo
 
 ## Integração com outros repositórios
 
-A modalidade principal prevista é uma API HTTP REST versionada, consumida por HTTPS. Um repositório cliente poderá enviar um pedido autenticado, indicar uma fonte ou tarefa de extração, consultar o estado e receber resultados normalizados com metadados de proveniência.
+A modalidade de integração é uma API HTTP REST versionada, destinada a ser publicada por HTTPS. Os repositórios clientes poderão enviar pedidos autenticados, indicar fontes ou tarefas de extração e receber dados normalizados com proveniência. O contrato público será o OpenAPI, sem necessidade de copiar o código interno da API.
 
-Os contratos de pedido/resposta, autenticação, erros, limites, idempotência e tarefas assíncronas serão especificados antes da implementação. SDKs reutilizáveis e integração por GitHub Actions poderão ser adicionados sem substituir o contrato REST.
+## Estrutura técnica
 
-**Estado:** a API ainda não está implementada nem publicada como serviço operacional. Os documentos não significam que já exista um endpoint de produção.
+- `app/main.py`: aplicação FastAPI e endpoints versionados.
+- `app/extraction.py`: cliente HTTP e normalização inicial de JSON, CSV, XML e HTML.
+- `app/security.py`: validação inicial de URLs e autenticação Bearer opcional.
+- `app/config.py`: configuração por variáveis de ambiente.
+- `tests/`: testes automatizados iniciais.
+- `Dockerfile` e `compose.yaml`: empacotamento e execução local.
+- `.github/workflows/ci.yml`: pipeline de lint e testes.
+- `docs/CONTRATO_API.md`: contrato inicial e limitações conhecidas.
+
+## Endpoints iniciais
+
+- `GET /health/live`
+- `GET /health/ready`
+- `POST /v1/extractions`
+- `GET /docs`
+- `GET /openapi.json`
+
+## Estado e limitações
+
+Existe agora uma implementação inicial na branch de trabalho e na PR em revisão. **Ainda não é um serviço de produção e não está declarado operacional publicamente.** A execução de testes e a validação do pipeline CI continuam pendentes de evidência. A proteção contra SSRF necessita de defesa adicional a nível de rede/proxy e testes de segurança antes de exposição pública. A primeira versão ainda não tem fila assíncrona, persistência, rate limiting, conectores PDF, SDKs nem auditoria persistente.
 
 ## Documentos
 
-- [Âmbito oficial](docs/ESCOPO.md)
-- [Arquitetura inicial](docs/ARQUITETURA.md)
-- [Roadmap e critérios de aceitação](ROADMAP.md)
-
-## Estado atual
-
-O repositório iniciou-se com o ficheiro de licença. Esta alteração documental propõe o âmbito, a arquitetura e o roadmap; ainda não implementa serviço, conectores, testes de execução ou implantação.
+- [Âmbito](docs/ESCOPO.md)
+- [Arquitetura](docs/ARQUITETURA.md)
+- [Roadmap](ROADMAP.md)
+- [Contrato da API](docs/CONTRATO_API.md)
 
 A referência à GOVERNANCA não declara conformidade integral. A conformidade deve ser demonstrada por inspeção e evidências locais.
