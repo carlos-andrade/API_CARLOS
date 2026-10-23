@@ -9,7 +9,7 @@
 | **Fase** | F0–R6 — Ciclo de vida do projeto |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.1.0 |
-| **SHA-256 (conteúdo canónico)** | 913eb2bfe6ffbf0c12c79636100cba4b34ff87d4bc3178d971b7ac63ef591b3f |
+| **SHA-256 (conteúdo canónico)** | 3653ee6f4a04c63b692f9795dbfc560c43c67be0a537e2168875511e87290f51 |
 | **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-23 |
@@ -18,18 +18,6 @@
 | **Origem** | Artefacto do projeto API_CARLOS; atualização de conformidade documental |
 | **Autoridade superior** | [Norma GOV-CAB-NORMA-001 v1.0.3](https://github.com/carlos-andrade/GOVERNANCA/blob/main/CABE%C3%87ALHO/NORMA-CABECALHO-PADRAO.md) |
 | **Cadeia de autoridade** | PROMPTS → CARTAS → LAYOUT ÚNICO → CÓDIGO |
-
-| Campo | Valor |
-|---|---|
-| **ID** | API-CARLOS-ROADMAP-001 |
-| **Projeto** | API_CARLOS |
-| **Tipo documental** | ROADMAP |
-| **Fase atual** | F0 — Definição de âmbito e governação |
-| **Estado global** | EM_REVISAO |
-| **Versão** | 0.1.0 |
-| **Data de atualização** | 2026-10-23 |
-| **Responsável** | Carlos Andrade |
-| **Padrão de referência** | https://github.com/carlos-andrade/GOVERNANCA/blob/main/CARTA-CONTRATO-PADRAO-ROADMAP.md |
 
 ## Painel executivo
 
