@@ -4,6 +4,25 @@
 |---|---|
 | **ID** | API-CARLOS-ARCH-001 |
 | **Projeto** | API_CARLOS |
+| **Repositório** | [carlos-andrade/API_CARLOS](https://github.com/carlos-andrade/API_CARLOS) |
+| **Tipo documental** | ARQUITETURA |
+| **Fase** | G2 — Arquitetura e requisitos |
+| **Estado** | EM_REVISAO |
+| **Versão** | 0.1.0 |
+| **SHA-256 (conteúdo canónico)** | 49660dbf70faab09e3fea0a83b2dc568568864c25fe217514e45c058bef5ba83 |
+| **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
+| **Data de criação** | 2026-10-23 |
+| **Data de atualização** | 2026-10-23 |
+| **Responsável** | Carlos Andrade |
+| **Aprovador** | Pendente de aprovação formal |
+| **Origem** | Artefacto do projeto API_CARLOS; atualização de conformidade documental |
+| **Autoridade superior** | [Norma GOV-CAB-NORMA-001 v1.0.3](https://github.com/carlos-andrade/GOVERNANCA/blob/main/CABE%C3%87ALHO/NORMA-CABECALHO-PADRAO.md) |
+| **Cadeia de autoridade** | PROMPTS → CARTAS → LAYOUT ÚNICO → CÓDIGO |
+
+| Campo | Valor |
+|---|---|
+| **ID** | API-CARLOS-ARCH-001 |
+| **Projeto** | API_CARLOS |
 | **Tipo documental** | ARQUITETURA |
 | **Fase** | G2 — Arquitetura e requisitos |
 | **Estado** | PROPOSTO |
