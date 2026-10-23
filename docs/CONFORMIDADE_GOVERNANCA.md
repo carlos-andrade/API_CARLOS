@@ -9,7 +9,7 @@
 | **Fase** | F0–I3 — Governação documental e núcleo técnico |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.1.0 |
-| **SHA-256 (conteúdo canónico)** | cd8aa63b122501edabaf4a733665a0290f897bbda7ed830d449101ab45de2ef7 |
+| **SHA-256 (conteúdo canónico)** | dded5abf9aa365b6a2e96d15f2aa5e394cc1f87419a43aea0887afa1f7718cc7 |
 | **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-23 |
@@ -40,7 +40,7 @@ Este registo documenta a inspeção inicial de adoção da norma de cabeçalho n
 ## Não conformidades e pendências
 
 1. Confirmar que todos os SHA-256 canónicos dos Markdown correspondem ao conteúdo publicado e à regra de exclusão das duas linhas de metadados.
-2. Reexecutar/verificar o CI após a correção de empacotamento Hatchling e guardar o resultado.
+2. O CI [run 39941146403](https://github.com/carlos-andrade/API_CARLOS/actions/runs/39941146403) falhou em `ruff check .` com SIM117, F841, UP017, I001 e F401; o passo pytest foi ignorado. Correções de lint foram aplicadas nesta branch e aguardam nova execução CI.
 3. Rever a política de segurança SSRF, incluindo DNS rebinding, redirecionamentos, egress filtering e restrição de portas.
 4. Formalizar a aprovação do âmbito, da arquitetura e do contrato HTTP.
 5. Rever a completude dos cabeçalhos de código/configuração e validar que os comentários não alteram o comportamento dos formatos.
