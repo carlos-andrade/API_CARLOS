@@ -9,7 +9,7 @@
 | **Fase** | I3 — Núcleo técnico inicial |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.1.0 |
-| **SHA-256 (conteúdo canónico)** | 0889eb26cb19f10365589bacc03be22becdfb4c5057f80e1d092201b6c18d3ab |
+| **SHA-256 (conteúdo canónico)** | 385e8a991d5495abff2fab1669e5af8532bd9bb997f4cc78f3ed154864a57f4b |
 | **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-23 |
@@ -18,14 +18,6 @@
 | **Origem** | Artefacto do projeto API_CARLOS; atualização de conformidade documental |
 | **Autoridade superior** | [Norma GOV-CAB-NORMA-001 v1.0.3](https://github.com/carlos-andrade/GOVERNANCA/blob/main/CABE%C3%87ALHO/NORMA-CABECALHO-PADRAO.md) |
 | **Cadeia de autoridade** | PROMPTS → CARTAS → LAYOUT ÚNICO → CÓDIGO |
-
-| Campo | Valor |
-|---|---|
-| ID | API-CARLOS-CONTRACT-001 |
-| Versão | 0.1.0 |
-| Estado | PROPOSTA TÉCNICA — validação pendente |
-| Base path | /v1 |
-| Contrato gerado | /openapi.json |
 
 ## Autenticação
 
