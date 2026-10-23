@@ -9,7 +9,7 @@
 | **Fase** | F0–R6 — Ciclo de vida do projeto |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.1.0 |
-| **SHA-256 (conteúdo canónico)** | 3653ee6f4a04c63b692f9795dbfc560c43c67be0a537e2168875511e87290f51 |
+| **SHA-256 (conteúdo canónico)** | 9c56337b633e3a0a00baaca01bd8cc383e168450bf9f1ea7c1641d132d50468b |
 | **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-23 |
@@ -25,7 +25,7 @@
 - **Requisito transversal:** invocação por outros repositórios através de contrato estável, versionado e autenticado.
 - **Estado da implementação:** núcleo inicial implementado e integrado em `main`; validação CI e aprovação de segurança ainda pendentes de evidência.
 - **Próximo marco:** corrigir/confirmar CI, inspecionar a conformidade documental e rever âmbito/arquitetura.
-- **Bloqueio principal:** execução CI ainda não confirmada após correção de empacotamento; arquitetura, contrato e controlos de produção carecem de aprovação.
+- **Bloqueio principal:** a execução CI mais recente falhou em `ruff check .` (SIM117, F841, UP017, I001 e F401); os testes foram ignorados nesse run. Arquitetura, contrato e controlos de produção carecem de aprovação.
 - **Percentual de conclusão:** não calculado. Não há baseline de critérios ponderados validada; não inventar percentuais.
 
 ## Fases e gates
@@ -43,7 +43,7 @@
 ## Ações prioritárias
 
 1. Rever os documentos nesta branch e aprovar formalmente o âmbito.
-2. Inspecionar requisitos locais da GOVERNANCA aplicáveis e registar conformidade ou desvios.
+2. Rever o registo local de conformidade em [docs/CONFORMIDADE_GOVERNANCA.md](docs/CONFORMIDADE_GOVERNANCA.md) e fechar os desvios identificados.
 3. Definir OpenAPI para submissão de extração, estado, resultado, erros e saúde.
 4. Escolher stack, autenticação, fila e persistência após análise de alternativas.
 5. Implementar um conector simples e um cliente de outro repositório como prova de interoperabilidade.
@@ -60,7 +60,7 @@
 
 ## Evidências e estado
 
-A implementação inicial foi integrada em `main` pelo merge commit [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b). O primeiro CI reportado falhou no empacotamento Hatchling; foi preparada correção em PR #3, mas o sucesso da nova execução ainda não está confirmado. Não há evidência de implantação pública nem de conformidade integral.
+A implementação inicial foi integrada em `main` pelo merge commit [4c4304b3b6ef0e6651144a2101190bdbacf74ed7](https://github.com/carlos-andrade/API_CARLOS/commit/4c4304b3b6ef0e6651144a2101190bdbacf74ed7). A execução CI [#39941146403](https://github.com/carlos-andrade/API_CARLOS/actions/runs/39941146403) falhou no lint `ruff check .`; o passo pytest foi ignorado. Correções de lint estão a ser preparadas nesta branch; a validação final continua pendente. Não há evidência de implantação pública nem de conformidade integral.
 
 ## Histórico
 
