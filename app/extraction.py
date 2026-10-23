@@ -13,7 +13,7 @@ import csv
 import io
 import json
 import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import httpx
 from bs4 import BeautifulSoup
@@ -27,10 +27,11 @@ async def extract_url(url: str) -> dict:
     safe_url = validate_public_url(url)
     timeout = httpx.Timeout(settings.request_timeout_seconds)
     try:
-        async with httpx.AsyncClient(timeout=timeout, follow_redirects=False, headers={
-            "User-Agent": "API_CARLOS/0.1 (+public-data-extraction; contact: operator)"
-        }) as client:
-            async with client.stream("GET", safe_url) as response:
+        async with httpx.AsyncClient(
+            timeout=timeout,
+            follow_redirects=False,
+            headers={"User-Agent": "API_CARLOS/0.1 (+public-data-extraction; contact: operator)"},
+        ) as client, client.stream("GET", safe_url) as response:
                 if 300 <= response.status_code < 400:
                     raise HTTPException(status_code=400, detail={
                         "code": "REDIRECT_BLOCKED", "message": "Redirecionamentos estão bloqueados; valide o destino separadamente."
@@ -46,7 +47,6 @@ async def extract_url(url: str) -> dict:
                     chunks.append(chunk)
                 body = b"".join(chunks)
                 content_type = response.headers.get("content-type", "").split(";")[0].lower()
-                final_url = str(response.url)
                 status_code = response.status_code
     except HTTPException:
         raise
@@ -77,7 +77,7 @@ async def extract_url(url: str) -> dict:
 
     return {
         "source_url": safe_url,
-        "retrieved_at": datetime.now(timezone.utc).isoformat(),
+        "retrieved_at": datetime.now(UTC).isoformat(),
         "http_status": status_code,
         "content_type": content_type or "application/octet-stream",
         "parser": parser,
