@@ -32,22 +32,22 @@ async def extract_url(url: str) -> dict:
             follow_redirects=False,
             headers={"User-Agent": "API_CARLOS/0.1 (+public-data-extraction; contact: operator)"},
         ) as client, client.stream("GET", safe_url) as response:
-                if 300 <= response.status_code < 400:
-                    raise HTTPException(status_code=400, detail={
-                        "code": "REDIRECT_BLOCKED", "message": "Redirecionamentos estão bloqueados; valide o destino separadamente."
+            if 300 <= response.status_code < 400:
+                raise HTTPException(status_code=400, detail={
+                    "code": "REDIRECT_BLOCKED", "message": "Redirecionamentos estão bloqueados; valide o destino separadamente."
+                })
+            response.raise_for_status()
+            chunks, total = [], 0
+            async for chunk in response.aiter_bytes():
+                total += len(chunk)
+                if total > settings.max_response_bytes:
+                    raise HTTPException(status_code=413, detail={
+                        "code": "RESPONSE_TOO_LARGE", "message": "A resposta excede o limite configurado."
                     })
-                response.raise_for_status()
-                chunks, total = [], 0
-                async for chunk in response.aiter_bytes():
-                    total += len(chunk)
-                    if total > settings.max_response_bytes:
-                        raise HTTPException(status_code=413, detail={
-                            "code": "RESPONSE_TOO_LARGE", "message": "A resposta excede o limite configurado."
-                        })
-                    chunks.append(chunk)
-                body = b"".join(chunks)
-                content_type = response.headers.get("content-type", "").split(";")[0].lower()
-                status_code = response.status_code
+                chunks.append(chunk)
+            body = b"".join(chunks)
+            content_type = response.headers.get("content-type", "").split(";")[0].lower()
+            status_code = response.status_code
     except HTTPException:
         raise
     except httpx.TimeoutException as exc:
