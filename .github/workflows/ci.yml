@@ -45,6 +45,18 @@ jobs:
           cleanup() { docker compose --profile security-test logs --no-color || true; docker compose --profile security-test down -v; }
           trap cleanup EXIT
           timeout 180s docker compose --profile security-test up --build -d
+          proxy_id=$(docker compose ps -q egress-proxy)
+          proxy_health=starting
+          for attempt in $(seq 1 30); do
+            proxy_health=$(docker inspect --format '{{.State.Health.Status}}' "$proxy_id")
+            if [ "$proxy_health" = healthy ]; then break; fi
+            sleep 2
+          done
+          if [ "$proxy_health" != healthy ]; then
+            docker compose --profile security-test logs egress-proxy
+            echo "Egress proxy failed its healthcheck"
+            exit 1
+          fi
           for attempt in $(seq 1 30); do
             if curl --fail --silent http://127.0.0.1:8000/health/ready; then break; fi
             sleep 2
