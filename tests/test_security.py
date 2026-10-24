@@ -70,3 +70,16 @@ def test_production_rejects_missing_proxy():
     )
     with pytest.raises(RuntimeError, match="EGRESS_PROXY_URL"):
         settings.validate_production()
+
+
+
+def test_production_rejects_invalid_proxy_scheme():
+    settings = Settings(
+        app_env="production",
+        api_keys="a-long-random-key-that-is-at-least-32-chars",
+        allowed_hosts="example.com",
+        egress_proxy_url="file:///etc/passwd",
+        audit_db_path="/tmp/audit.sqlite3",
+    )
+    with pytest.raises(RuntimeError, match="EGRESS_PROXY_URL"):
+        settings.validate_production()
