@@ -26,6 +26,10 @@ services:
       - no-new-privileges:true
     cap_drop:
       - ALL
+    init: true
+    pids_limit: 128
+    mem_limit: 512m
+    cpus: 1.0
     restart: unless-stopped
 
 volumes:
