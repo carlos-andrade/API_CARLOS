@@ -64,7 +64,7 @@ def test_production_requires_auth_allowlist_and_proxy():
 def test_production_rejects_missing_proxy():
     settings = Settings(
         app_env="production",
-        api_keys="a-long-random-key",
+        api_keys="a-long-random-key-that-is-at-least-32-chars",
         allowed_hosts="example.com",
         egress_proxy_url="",
     )
