@@ -41,8 +41,8 @@ class Settings(BaseSettings):
         if self.app_env.lower() not in {"production", "prod"}:
             return
         missing = []
-        if not self.api_key_set:
-            missing.append("API_KEYS")
+        if not self.api_key_set or any(len(key) < 32 for key in self.api_key_set):
+            missing.append("API_KEYS (tokens aleatórios com pelo menos 32 caracteres)")
         if not self.allowed_host_set:
             missing.append("ALLOWED_HOSTS")
         if not self.egress_proxy_url.strip():
