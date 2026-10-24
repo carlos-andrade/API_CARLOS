@@ -69,28 +69,7 @@ jobs:
             echo "API failed its readiness healthcheck"
             exit 1
           fi
-          docker compose exec -T api python - <<'PY'
-          import json
-          import urllib.error
-          import urllib.request
-
-          request = urllib.request.Request(
-              "http://127.0.0.1:8000/v1/extractions",
-              data=json.dumps({"url": "http://security-test-target/"}).encode(),
-              headers={
-                  "Authorization": "Bearer ci-test-token-that-is-long-enough-for-production-123456",
-                  "Content-Type": "application/json",
-              },
-          )
-          try:
-              urllib.request.urlopen(request, timeout=10)
-          except urllib.error.HTTPError as error:
-              body = error.read().decode()
-              assert error.code == 502, (error.code, body)
-              assert "SOURCE_HTTP_ERROR" in body, body
-          else:
-              raise AssertionError("Proxy unexpectedly reached the private test target")
-          PY
+          docker compose exec -T api python -c "import http.client; c=http.client.HTTPConnection('127.0.0.1', 8000, timeout=10); c.request('POST', '/v1/extractions', b'{\"url\":\"http://security-test-target/\"}', {'Authorization': 'Bearer ci-test-token-that-is-long-enough-for-production-123456', 'Content-Type': 'application/json'}); r=c.getresponse(); b=r.read(); assert r.status == 502 and b'SOURCE_HTTP_ERROR' in b, (r.status, b); c.close()"
           if docker compose exec -T api python -c 'import socket; socket.create_connection(("1.1.1.1", 443), timeout=2)'; then
             echo "Direct API egress unexpectedly succeeded"
             exit 1
