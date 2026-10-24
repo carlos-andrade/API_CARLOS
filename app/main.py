@@ -19,6 +19,7 @@ from contextlib import asynccontextmanager
 from fastapi import Depends, FastAPI, Request
 from pydantic import BaseModel, Field, HttpUrl
 
+from app.audit import initialize_audit_store, record_request
 from app.config import settings
 from app.extraction import extract_url
 from app.security import require_api_key
@@ -31,6 +32,8 @@ _extraction_slots = asyncio.Semaphore(settings.max_concurrent_extractions)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     settings.validate_production()
+    if settings.audit_db_path:
+        initialize_audit_store(settings.audit_db_path)
     yield
 
 
@@ -51,9 +54,7 @@ async def audit_requests(request: Request, call_next):
         response = await call_next(request)
         return response
     finally:
-        logger.info(
-            json.dumps(
-                {
+        event = {
                     "event": "http_request",
                     "request_id": request_id,
                     "method": request.method,
@@ -61,10 +62,10 @@ async def audit_requests(request: Request, call_next):
                     "status_code": response.status_code if response else 500,
                     "duration_ms": round((time.monotonic() - started) * 1000, 2),
                     "client_ip": request.client.host if request.client else None,
-                },
-                separators=(",", ":"),
-            )
-        )
+                }
+        logger.info(json.dumps(event, separators=(",", ":")))
+        if settings.audit_db_path:
+            record_request(settings.audit_db_path, event)
 
 
 class ExtractionRequest(BaseModel):
