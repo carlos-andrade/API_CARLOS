@@ -28,8 +28,7 @@ async def extract_url(url: str) -> dict:
     safe_url = validate_public_url(url)
     timeout = httpx.Timeout(settings.request_timeout_seconds, connect=min(5.0, settings.request_timeout_seconds))
     try:
-        async with asyncio.timeout(settings.request_timeout_seconds):
-            async with httpx.AsyncClient(
+        async with asyncio.timeout(settings.request_timeout_seconds), httpx.AsyncClient(
                 timeout=timeout,
                 follow_redirects=False,
                 trust_env=False,
