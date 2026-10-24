@@ -10,7 +10,7 @@
 import hashlib
 import sys
 from pathlib import Path
-FILES = ['README.md', 'ROADMAP.md', 'docs/ARQUITETURA.md', 'docs/ESCOPO.md', 'docs/CONTRATO_API.md', 'docs/CONFORMIDADE_GOVERNANCA.md']
+FILES = ['README.md', 'ROADMAP.md', 'docs/ARQUITETURA.md', 'docs/ESCOPO.md', 'docs/CONTRATO_API.md', 'docs/CONFORMIDADE_GOVERNANCA.md', 'docs/REVISAO_ARQUITETURA_SEGURANCA_PRODUCAO.md']
 def main():
     failed = False
     for name in FILES:
