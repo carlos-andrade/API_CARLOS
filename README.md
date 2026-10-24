@@ -9,7 +9,7 @@
 | **Fase** | I3 — Núcleo técnico inicial |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.1.0 |
-| **SHA-256 (conteúdo canónico)** | de47496ae1bbb5421c71a842f6ae34db78bbc0fb8f2b6c43cc3a148573b299b0 |
+| **SHA-256 (conteúdo canónico)** | 70fd242e4cdbdc1e3a575567a8b5958b0b320d4ccbad750e880fe0186d265cc0 |
 | **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-23 |
