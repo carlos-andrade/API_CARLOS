@@ -9,7 +9,7 @@
 | **Fase** | G2 — Arquitetura e autorização de produção |
 | **Estado** | EM_REVISAO |
 | **Versão** | 1.5.0 |
-| **SHA-256 (conteúdo canónico)** | PENDENTE DE RECÁLCULO |
+| **SHA-256 (conteúdo canónico)** | 1e332ce919c16afa7d1c8e60309c55078a48fb28b091439c68b499fbb546655b |
 | **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-24 |
 | **Data de atualização** | 2026-10-24 |
