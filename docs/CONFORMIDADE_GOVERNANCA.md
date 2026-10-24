@@ -9,7 +9,7 @@
 | **Fase** | G0–G2 — Governação documental, núcleo e segurança |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.3.0 |
-| **SHA-256 (conteúdo canónico)** | PENDENTE DE RECÁLCULO |
+| **SHA-256 (conteúdo canónico)** | 2d7f14be13ad8231167586893f736f7c7d50d92cdc9a7b86bc2373230cb3e08f |
 | **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-24 |
