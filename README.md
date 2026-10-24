@@ -9,7 +9,7 @@
 | **Fase** | G2 — Endurecimento de segurança |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.2.0 |
-| **SHA-256 (conteúdo canónico)** | 897a7f6d3f5c5de719694194a87de0e44087433b53e4668ddb3c3ce706fe775d |
+| **SHA-256 (conteúdo canónico)** | b96909fcb3ff277f07cd51262a229679656e9136de6f8bd39749f70ad6507067 |
 | **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-24 |
@@ -61,7 +61,7 @@ A modalidade de integração é uma API HTTP REST versionada, destinada a ser pu
 
 ## Estado e limitações
 
-O hardening inicial foi integrado em `main` no commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`; o proxy Squid isolado foi integrado no commit `0948ceaaeeee387c06849f49d9286753fcc818db`. O CI da branch de teste runtime [run 40048594469](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40048594469) passou Ruff, hashes, pytest, build Squid e teste de rede com containers: o proxy bloqueou o alvo privado e a API não conseguiu egress direto. A autorização de produção continua NO-GO até revisão independente e validação operacional no ambiente-alvo. **A API continua NO-GO para produção pública.** O ambiente de produção tem de configurar `API_KEYS` com tokens fortes, `ALLOWED_HOSTS`, `EGRESS_PROXY_URL` apontando para um proxy gerido com política anti-SSRF e `AUDIT_DB_PATH`. Ainda faltam testes de rede no ambiente-alvo para comprovar o proxy Squid e o bloqueio de egress, verificação de supply chain, staging/rollback e revisão independente. O rate limiting é local ao processo e requer gateway partilhado para múltiplas réplicas. Ainda não existem fila assíncrona, conectores PDF nem SDKs.
+O hardening, o proxy Squid isolado e o teste runtime de egress estão integrados na `main` no commit `a41297403239cae9062423a1cb6baae003dcbff8`. O CI [run 40048867801](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40048867801) passou instalação, Ruff, hashes canónicos, pytest, build do proxy e teste runtime: bloqueio do alvo privado e ausência de egress direto pela API. **A API continua NO-GO para produção pública** até validação no ambiente-alvo real, revisão de supply chain, staging/rollback e revisão independente com aprovação formal. O ambiente de produção requer `API_KEYS` fortes, `ALLOWED_HOSTS`, `EGRESS_PROXY_URL` e `AUDIT_DB_PATH`. O rate limiting é local ao processo e requer gateway partilhado para múltiplas réplicas. Ainda não existem fila assíncrona, conectores PDF nem SDKs.
 
 ## Documentos
 

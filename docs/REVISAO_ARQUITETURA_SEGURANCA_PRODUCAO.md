@@ -9,7 +9,7 @@
 | **Fase** | G2 — Arquitetura e autorização de produção |
 | **Estado** | EM_REVISAO |
 | **Versão** | 1.5.0 |
-| **SHA-256 (conteúdo canónico)** | 1e332ce919c16afa7d1c8e60309c55078a48fb28b091439c68b499fbb546655b |
+| **SHA-256 (conteúdo canónico)** | 5d272427a824359fb30751e121293dad8a9c109a148974e8331fb79cb953b8d3 |
 | **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-24 |
 | **Data de atualização** | 2026-10-24 |
@@ -53,7 +53,7 @@
 - **Segurança para produção:** **NÃO APROVADA (NO-GO)** até ao fecho dos bloqueios e validação no ambiente-alvo.
 - **Aprovador:** pendente de designação/decisão explícita do responsável do projeto.
 - **Data da decisão:** 2026-10-24.
-- **Evidência:** PR #6 integrado no commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`; CI [run 40047306146](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047306146) passou Ruff, verificação SHA-256 e pytest. O proxy foi integrado na main pela PR #8; build e testes estáticos passaram em [run 40047652526](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047652526).
+- **Evidência final:** hardening, proxy isolado e teste runtime integrados no commit `a41297403239cae9062423a1cb6baae003dcbff8`; CI [run 40048867801](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40048867801) passou Ruff, hashes canónicos, pytest, build Squid e teste runtime de egress.
 
 ## 5. Critérios para mudar para GO
 

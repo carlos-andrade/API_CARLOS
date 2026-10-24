@@ -9,7 +9,7 @@
 | **Fase** | G0–G2 — Governação documental, núcleo e segurança |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.3.0 |
-| **SHA-256 (conteúdo canónico)** | 0e07a638ae381b6388a04ac88782d91136f5dd16b87d68d6614c783d9086661d |
+| **SHA-256 (conteúdo canónico)** | 2d7f14be13ad8231167586893f736f7c7d50d92cdc9a7b86bc2373230cb3e08f |
 | **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-24 |
@@ -26,7 +26,7 @@ Regista o estado de adoção documental, integridade canónica e segurança do r
 ## Resultado verificado
 
 - **Hashes canónicos:** verificação automática PASS para os seis documentos nucleares e para a revisão de arquitetura/segurança na branch de hardening, usando Python hashlib e a normalização especificada.
-- **CI da main após hardening:** PASS no commit 1e61e4dc5d89d9ecf59702288d0081824fc7a908; [run 40047306146](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047306146). Instalação, Ruff, verificador SHA-256 e pytest passaram.
+- **CI final da main:** PASS no commit `a41297403239cae9062423a1cb6baae003dcbff8`; [run 40048867801](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40048867801). Instalação, Ruff, hashes canónicos, pytest, build Squid e teste runtime de egress passaram.
 - **Hardening de segurança:** PR #6 integrado na main no commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`; adiciona autenticação fail-closed em produção, allowlist, proxy explícito obrigatório, limites, rate limiting local, concorrência limitada, auditoria SQLite e endurecimento de container.
 - **Integridade documental:** hashes dos sete documentos sob controlo passaram no CI do commit indicado.
 - **Proxy de saída:** PR #8 propõe serviço Squid em rede isolada com ACLs para loopback, link-local, redes privadas e endereços reservados; a validação em runtime ainda não está demonstrada.

@@ -9,7 +9,7 @@
 | **Fase** | G0–R6 — Ciclo de vida do projeto |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.2.0 |
-| **SHA-256 (conteúdo canónico)** | 59e5659ab0989e4f3bcdef4d10ddf98a97fdbd482f50b10cbb70b6cb44dc4c0f |
+| **SHA-256 (conteúdo canónico)** | aa92616fe211689f169bcb6c59b25e8968c0be8c2c72797d8a1125d3730fcb58 |
 | **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-24 |
@@ -23,7 +23,7 @@
 
 - **Missão:** disponibilizar uma API modular, versionada e auditável para extração de dados públicos, com contrato estável para consumo por outros repositórios.
 - **Estado técnico:** hardening e proxy Squid isolado integrados; teste runtime de isolamento e bloqueio de destino privado passou no CI. Validação operacional fora do CI e aprovação de produção continuam pendentes.
-- **CI mais recente na main:** PASS — run [40047306146](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047306146), commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`. Instalação, Ruff, verificação SHA-256 e pytest passaram.
+- **CI mais recente na main:** PASS — run [40048867801](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40048867801), commit `a41297403239cae9062423a1cb6baae003dcbff8`. Instalação, Ruff, hashes, pytest, build Squid e teste runtime de egress passaram.
 - **Hashes canónicos:** verificação automática PASS para seis documentos nucleares e a revisão de arquitetura/segurança.
 - **Produção:** NO-GO. O código exige configuração de autenticação, allowlist, proxy de saída e auditoria persistente; ainda faltam evidências no ambiente-alvo e revisão independente.
 - **Percentagem global:** não calculada. A conclusão ponderada exige baseline de critérios e evidências validadas; não atribuir percentagens sem essa baseline.
@@ -65,3 +65,4 @@
 | 2026-10-23 | Núcleo inicial e documentação integrados | PR #4 e CI inicial |
 | 2026-10-24 | Hashes canónicos recalculados e verificador integrado | PR #5; CI run 40046560279 PASS |
 | 2026-10-24 | Hardening de autenticação, proxy obrigatório, rate limiting, concorrência, timeout, auditoria persistente e container endurecido integrados | PR #6; CI main run 40047306146 PASS |
+| 2026-10-24 | Proxy Squid isolado e teste runtime de egress integrados | PR #8 e PR #10; CI main run 40048867801 PASS |
