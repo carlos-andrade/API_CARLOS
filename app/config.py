@@ -21,6 +21,7 @@ class Settings(BaseSettings):
     max_text_chars: int = 200_000
     allowed_hosts: str = ""
     api_keys: str = ""
+    egress_proxy_url: str = ""
     rate_limit_requests: int = 60
     rate_limit_window_seconds: int = 60
     max_concurrent_extractions: int = 4
@@ -43,6 +44,8 @@ class Settings(BaseSettings):
             missing.append("API_KEYS")
         if not self.allowed_host_set:
             missing.append("ALLOWED_HOSTS")
+        if not self.egress_proxy_url.strip():
+            missing.append("EGRESS_PROXY_URL (proxy de saída com política anti-SSRF)")
         if self.rate_limit_requests < 1 or self.rate_limit_window_seconds < 1:
             missing.append("RATE_LIMIT_REQUESTS/RATE_LIMIT_WINDOW_SECONDS")
         if self.max_concurrent_extractions < 1:
