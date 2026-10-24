@@ -55,14 +55,14 @@ async def audit_requests(request: Request, call_next):
         return response
     finally:
         event = {
-                    "event": "http_request",
-                    "request_id": request_id,
-                    "method": request.method,
-                    "path": request.url.path,
-                    "status_code": response.status_code if response else 500,
-                    "duration_ms": round((time.monotonic() - started) * 1000, 2),
-                    "client_ip": request.client.host if request.client else None,
-                }
+            "event": "http_request",
+            "request_id": request_id,
+            "method": request.method,
+            "path": request.url.path,
+            "status_code": response.status_code if response else 500,
+            "duration_ms": round((time.monotonic() - started) * 1000, 2),
+            "client_ip": request.client.host if request.client else None,
+        }
         logger.info(json.dumps(event, separators=(",", ":")))
         if settings.audit_db_path:
             record_request(settings.audit_db_path, event)
