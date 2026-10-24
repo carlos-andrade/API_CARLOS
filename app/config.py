@@ -9,6 +9,8 @@
 # Cadeia de autoridade: PROMPTS → CARTAS → LAYOUT ÚNICO → CÓDIGO
 
 """Configuração tipada e validação de pré-condições de produção."""
+from urllib.parse import urlsplit
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -45,12 +47,15 @@ class Settings(BaseSettings):
             missing.append("API_KEYS (tokens aleatórios com pelo menos 32 caracteres)")
         if not self.allowed_host_set:
             missing.append("ALLOWED_HOSTS")
-        if not self.egress_proxy_url.strip():
-            missing.append("EGRESS_PROXY_URL (proxy de saída com política anti-SSRF)")
+        proxy = urlsplit(self.egress_proxy_url.strip())
+        if proxy.scheme not in {"http", "https"} or not proxy.hostname:
+            missing.append("EGRESS_PROXY_URL (proxy HTTP(S) com política anti-SSRF)")
         if not self.audit_db_path.strip():
             missing.append("AUDIT_DB_PATH (auditoria persistente)")
         if self.rate_limit_requests < 1 or self.rate_limit_window_seconds < 1:
             missing.append("RATE_LIMIT_REQUESTS/RATE_LIMIT_WINDOW_SECONDS")
+        if self.request_timeout_seconds <= 0 or self.max_response_bytes < 1 or self.max_text_chars < 1:
+            missing.append("REQUEST_TIMEOUT_SECONDS/MAX_RESPONSE_BYTES/MAX_TEXT_CHARS")
         if self.max_concurrent_extractions < 1:
             missing.append("MAX_CONCURRENT_EXTRACTIONS")
         if missing:
