@@ -9,7 +9,7 @@
 | **Fase** | G0–G2 — Governação documental, núcleo e segurança |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.3.0 |
-| **SHA-256 (conteúdo canónico)** | 695ac9e2bd3e648b5f380d4913a90cf3d6b218e9812310b14ecd6500a1028343 |
+| **SHA-256 (conteúdo canónico)** | PENDENTE DE RECÁLCULO |
 | **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-24 |
@@ -34,7 +34,7 @@ Regista o estado de adoção documental, integridade canónica e segurança do r
 
 ## Pendências de segurança e aprovação
 
-1. Rever e integrar o proxy Squid isolado; executar testes no ambiente-alvo para loopback, redes privadas, link-local, metadata endpoints, DNS rebinding e egress deny-by-default.
+1. Executar o Compose no ambiente-alvo e provar bloqueio de loopback, redes privadas, link-local, metadata endpoints, DNS rebinding e egress deny-by-default.
 2. Executar testes de integração de timeout, limite de bytes, redirects, autenticação, rate limiting e falhas do armazenamento de auditoria.
 3. Rever supply chain: dependências fixadas e scan de vulnerabilidades, pinagem das GitHub Actions e imagem base.
 4. Validar volume SQLite, permissões, backups, retenção, alertas, staging e rollback.
