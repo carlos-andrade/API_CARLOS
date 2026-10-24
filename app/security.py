@@ -43,6 +43,10 @@ def validate_public_url(url: str) -> str:
         try:
             addresses = [ipaddress.ip_address(host)]
         except ValueError:
+            if settings.app_env.lower() in {"production", "prod"} and settings.egress_proxy_url:
+                # Em produção, o proxy resolve o destino no momento da ligação e aplica ACL de egress.
+                # A API não faz uma segunda resolução DNS suscetível a TOCTOU.
+                return url
             answers = socket.getaddrinfo(
                 host,
                 parsed.port or (443 if parsed.scheme == "https" else 80),
