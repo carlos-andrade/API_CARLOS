@@ -42,9 +42,9 @@ jobs:
           RATE_LIMIT_WINDOW_SECONDS=60
           MAX_CONCURRENT_EXTRACTIONS=4
           EOF
-          cleanup() { docker compose --profile security-test down -v; }
+          cleanup() { docker compose --profile security-test logs --no-color || true; docker compose --profile security-test down -v; }
           trap cleanup EXIT
-          docker compose --profile security-test up --build -d
+          timeout 180s docker compose --profile security-test up --build -d
           for attempt in $(seq 1 30); do
             if curl --fail --silent http://127.0.0.1:8000/health/ready; then break; fi
             sleep 2
