@@ -2,7 +2,7 @@
 # ID: API-CARLOS-SRC-APP-EXTRACTION-PY
 # Projeto: API_CARLOS | Repositório: https://github.com/carlos-andrade/API_CARLOS
 # Tipo documental: MÓDULO PYTHON | Fase: G2 — Endurecimento de segurança | Estado: EM_REVISAO
-# Versão: 0.2.0 | Data de atualização: 2026-10-24 | Responsável: Carlos Andrade
+# Versão: 0.2.1 | Data de atualização: 2026-10-24 | Responsável: Carlos Andrade
 # Aprovador: Pendente de aprovação formal
 # Origem: Endurecimento do cliente de extração HTTP
 # Autoridade superior: https://github.com/carlos-andrade/GOVERNANCA/blob/main/CABE%C3%87ALHO/NORMA-CABECALHO-PADRAO.md
@@ -26,34 +26,46 @@ from app.security import validate_public_url
 
 async def extract_url(url: str) -> dict:
     safe_url = validate_public_url(url)
-    timeout = httpx.Timeout(settings.request_timeout_seconds, connect=min(5.0, settings.request_timeout_seconds))
+    timeout = httpx.Timeout(
+        settings.request_timeout_seconds,
+        connect=min(5.0, settings.request_timeout_seconds),
+    )
     try:
-        async with asyncio.timeout(settings.request_timeout_seconds), httpx.AsyncClient(
+        async with (
+            asyncio.timeout(settings.request_timeout_seconds),
+            httpx.AsyncClient(
                 timeout=timeout,
                 follow_redirects=False,
                 trust_env=False,
                 proxy=settings.egress_proxy_url or None,
                 headers={"User-Agent": "API_CARLOS/0.2 (+public-data-extraction)"},
-            ) as client:
-                async with client.stream("GET", safe_url) as response:
-                    if 300 <= response.status_code < 400:
-                        raise HTTPException(
-                            status_code=400,
-                            detail={"code": "REDIRECT_BLOCKED", "message": "Redirecionamentos bloqueados; valide o destino separadamente."},
-                        )
-                    response.raise_for_status()
-                    chunks, total = [], 0
-                    async for chunk in response.aiter_bytes():
-                        total += len(chunk)
-                        if total > settings.max_response_bytes:
-                            raise HTTPException(
-                                status_code=413,
-                                detail={"code": "RESPONSE_TOO_LARGE", "message": "A resposta excede o limite configurado."},
-                            )
-                        chunks.append(chunk)
-                    body = b"".join(chunks)
-                    content_type = response.headers.get("content-type", "").split(";")[0].lower()
-                    status_code = response.status_code
+            ) as client,
+            client.stream("GET", safe_url) as response,
+        ):
+            if 300 <= response.status_code < 400:
+                raise HTTPException(
+                    status_code=400,
+                    detail={
+                        "code": "REDIRECT_BLOCKED",
+                        "message": "Redirecionamentos bloqueados; valide o destino separadamente.",
+                    },
+                )
+            response.raise_for_status()
+            chunks, total = [], 0
+            async for chunk in response.aiter_bytes():
+                total += len(chunk)
+                if total > settings.max_response_bytes:
+                    raise HTTPException(
+                        status_code=413,
+                        detail={
+                            "code": "RESPONSE_TOO_LARGE",
+                            "message": "A resposta excede o limite configurado.",
+                        },
+                    )
+                chunks.append(chunk)
+            body = b"".join(chunks)
+            content_type = response.headers.get("content-type", "").split(";")[0].lower()
+            status_code = response.status_code
     except HTTPException:
         raise
     except TimeoutError as exc:
@@ -92,7 +104,10 @@ async def extract_url(url: str) -> dict:
     except (json.JSONDecodeError, csv.Error, ET.ParseError) as exc:
         raise HTTPException(
             status_code=422,
-            detail={"code": "PARSE_ERROR", "message": "Conteúdo recebido não corresponde ao formato anunciado."},
+            detail={
+                "code": "PARSE_ERROR",
+                "message": "Conteúdo recebido não corresponde ao formato anunciado.",
+            },
         ) from exc
 
     return {
