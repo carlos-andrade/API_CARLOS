@@ -24,7 +24,7 @@ services:
       - api_internal
     depends_on:
       egress-proxy:
-        condition: service_healthy
+        condition: service_started
     read_only: true
     tmpfs:
       - /tmp
