@@ -22,7 +22,7 @@ def test_liveness():
 def test_readiness():
     response = TestClient(app).get("/health/ready")
     assert response.status_code == 200
-    assert response.json()["version"] == "0.1.0"
+    assert response.json()["version"] == "0.2.0"
 
 
 def test_extraction_requires_url():
