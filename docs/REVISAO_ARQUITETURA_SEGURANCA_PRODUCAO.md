@@ -8,8 +8,8 @@
 | **Tipo documental** | REVISÃO DE ARQUITETURA E SEGURANÇA |
 | **Fase** | G2 — Arquitetura e autorização de produção |
 | **Estado** | EM_REVISAO |
-| **Versão** | 1.4.0 |
-| **SHA-256 (conteúdo canónico)** | ef01fc43875e664b62220411380b7010ff030a6ac3785e79de4236e4b3c3e177 |
+| **Versão** | 1.5.0 |
+| **SHA-256 (conteúdo canónico)** | PENDENTE DE RECÁLCULO |
 | **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-24 |
 | **Data de atualização** | 2026-10-24 |
@@ -29,7 +29,7 @@
 - Tokens Bearer são comparados em tempo constante.
 - Validação de URL rejeita esquemas diferentes de HTTP(S), credenciais embutidas, nomes locais e respostas DNS que incluam qualquer endereço não global.
 - Redirecionamentos HTTP são bloqueados; o cliente HTTP não usa variáveis de proxy implícitas do ambiente (trust_env=False) e aplica o proxy explicitamente configurado.
-- A PR #8 integrou um serviço Squid isolado: a API fica apenas numa rede Docker interna e o proxy tem uma rede de saída separada; ACLs negam loopback, link-local, redes privadas e endereços reservados. O CI validou o build da imagem e testes estáticos, mas ainda não há teste de rede real.
+- A PR #8 integrou um serviço Squid isolado: a API fica apenas numa rede Docker interna e o proxy tem uma rede de saída separada; ACLs negam loopback, link-local, redes privadas e endereços reservados. O CI [run 40048594469](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40048594469) validou build da imagem, execução Compose, bloqueio de um alvo privado via proxy e ausência de egress direto pela API. Ainda falta validação independente no ambiente-alvo real.
 - São aplicados timeout total, limite de bytes recebidos, limite de concorrência e rate limit local por endereço de cliente.
 - Eventos de pedido são emitidos como JSON sem token nem query string e persistidos em SQLite quando AUDIT_DB_PATH está configurado.
 - O Compose mantém a porta publicada em loopback, filesystem raiz somente de leitura, volume dedicado de auditoria, limites de CPU/memória/processos, init, healthcheck, remove capabilities e ativa no-new-privileges.
@@ -38,7 +38,7 @@
 
 | ID | Estado | Fecho exigido |
 |---|---|---|
-| SEC-01 — SSRF/DNS rebinding | PARCIAL | Proxy Squid e isolamento de rede integrados; CI passou build e testes estáticos. Falta executar Compose e demonstrar no ambiente-alvo bloqueio de loopback, redes privadas, link-local, metadata endpoints e DNS rebinding. |
+| SEC-01 — SSRF/DNS rebinding | PARCIAL | CI executou Compose e provou bloqueio de um hostname de teste privado e ausência de egress direto. Falta teste independente no ambiente-alvo real para loopback, IPv4/IPv6 privados, link-local, metadata endpoints e DNS rebinding. |
 | SEC-02 — Limites de transporte | PARCIAL | Testes de integração para timeout, tamanho máximo, redirects e comportamento do proxy, incluindo respostas comprimidas e lentas. |
 | SEC-03 — Autenticação | IMPLEMENTADO NO CÓDIGO; CONFIGURAÇÃO PENDENTE | Provisionar chaves fortes fora do repositório, validar rotação e confirmar arranque fail-closed no ambiente de produção. |
 | SEC-04 — Abuso e isolamento | PARCIAL | O rate limit atual é local ao processo. Em múltiplas réplicas, usar gateway ou armazenamento partilhado; validar quotas e carga. |
@@ -72,3 +72,4 @@
 | 1.2.0 | 2026-10-24 | Atualiza evidência após integração do hardening e CI verde; decisão de produção permanece NO-GO. |
 | 1.3.0 | 2026-10-24 | Regista proxy Squid isolado proposto e mantém bloqueio até teste real e revisão independente. |
 | 1.4.0 | 2026-10-24 | Atualiza estado após integração do proxy e CI verde de build/ACL; runtime e aprovação continuam pendentes. |
+| 1.5.0 | 2026-10-24 | Regista teste runtime de egress aprovado no CI; mantém NO-GO até validação independente e operacional externa. |
