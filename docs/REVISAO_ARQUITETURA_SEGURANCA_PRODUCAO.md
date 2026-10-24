@@ -9,7 +9,7 @@
 | **Fase** | G2 — Arquitetura e autorização de produção |
 | **Estado** | EM_REVISAO |
 | **Versão** | 1.1.0 |
-| **SHA-256 (conteúdo canónico)** | 1682d70a594f3a5d9bb108f69250d2e6aaa2615bb6f91bc67f1517e7b3efff68 |
+| **SHA-256 (conteúdo canónico)** | PENDENTE DE RECÁLCULO |
 | **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-24 |
 | **Data de atualização** | 2026-10-24 |
@@ -31,7 +31,7 @@
 - Redirecionamentos HTTP são bloqueados; o cliente HTTP não usa variáveis de proxy implícitas do ambiente (trust_env=False) e aplica o proxy explicitamente configurado.
 - São aplicados timeout total, limite de bytes recebidos, limite de concorrência e rate limit local por endereço de cliente.
 - Eventos de pedido são emitidos como JSON sem token nem query string e persistidos em SQLite quando AUDIT_DB_PATH está configurado.
-- O Compose mantém a porta publicada em loopback, filesystem raiz somente de leitura, remove capabilities e ativa no-new-privileges.
+- O Compose mantém a porta publicada em loopback, filesystem raiz somente de leitura, volume dedicado de auditoria, limites de CPU/memória/processos, init, healthcheck, remove capabilities e ativa no-new-privileges.
 
 ## 3. Bloqueios e evidências externas ainda necessários
 
