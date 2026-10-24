@@ -6,64 +6,62 @@
 | **Projeto** | API_CARLOS |
 | **Repositório** | [carlos-andrade/API_CARLOS](https://github.com/carlos-andrade/API_CARLOS) |
 | **Tipo documental** | ROADMAP |
-| **Fase** | F0–R6 — Ciclo de vida do projeto |
+| **Fase** | G0–R6 — Ciclo de vida do projeto |
 | **Estado** | EM_REVISAO |
-| **Versão** | 0.1.0 |
-| **SHA-256 (conteúdo canónico)** | 8d27b5fb9fee8d634a4d1986d50470dd008941e4ca4aae6a0aa9d513534496bd |
-| **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
+| **Versão** | 0.2.0 |
+| **SHA-256 (conteúdo canónico)** | PENDENTE DE RECÁLCULO |
+| **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-23 |
-| **Data de atualização** | 2026-10-23 |
+| **Data de atualização** | 2026-10-24 |
 | **Responsável** | Carlos Andrade |
 | **Aprovador** | Pendente de aprovação formal |
-| **Origem** | Artefacto do projeto API_CARLOS; atualização de conformidade documental |
+| **Origem** | Estado do repositório e evidências de CI/revisão de segurança |
 | **Autoridade superior** | [Norma GOV-CAB-NORMA-001 v1.0.3](https://github.com/carlos-andrade/GOVERNANCA/blob/main/CABE%C3%87ALHO/NORMA-CABECALHO-PADRAO.md) |
 | **Cadeia de autoridade** | PROMPTS → CARTAS → LAYOUT ÚNICO → CÓDIGO |
 
 ## Painel executivo
 
-- **Missão:** API modular para extração auditável de dados públicos e de acesso livre.
-- **Requisito transversal:** invocação por outros repositórios através de contrato estável, versionado e autenticado.
-- **Estado da implementação:** núcleo inicial implementado e integrado em `main`; validação CI e aprovação de segurança ainda pendentes de evidência.
-- **Próximo marco:** corrigir/confirmar CI, inspecionar a conformidade documental e rever âmbito/arquitetura.
-- **Bloqueio principal:** a execução CI mais recente falhou em `ruff check .` (SIM117, F841, UP017, I001 e F401); os testes foram ignorados nesse run. Arquitetura, contrato e controlos de produção carecem de aprovação.
-- **Percentual de conclusão:** não calculado. Não há baseline de critérios ponderados validada; não inventar percentuais.
+- **Missão:** disponibilizar uma API modular, versionada e auditável para extração de dados públicos, com contrato estável para consumo por outros repositórios.
+- **Estado técnico:** núcleo API e controlos iniciais integrados; endurecimento de segurança em revisão.
+- **CI mais recente na main:** PASS — run [40046560279](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40046560279), commit `8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023`. Instalação, Ruff, verificação SHA-256 e pytest passaram.
+- **Hashes canónicos:** verificação automática integrada no CI para os seis documentos nucleares; o registo de revisão de segurança está a ser incluído no conjunto documental de controlo.
+- **Produção:** NO-GO. O código exige configuração de autenticação, allowlist, proxy de saída e auditoria persistente; ainda faltam evidências no ambiente-alvo e revisão independente.
+- **Percentagem global:** não calculada. A conclusão ponderada exige baseline de critérios e evidências validadas; não atribuir percentagens sem essa baseline.
 
 ## Fases e gates
 
-| Fase | Estado | Entregáveis | Critério de saída |
+| Fase | Estado | Entregáveis/evidência | Critério de saída |
 |---|---|---|---|
-| F0 — Âmbito e governação | EM_REVISAO | README, âmbito, roadmap e mapa de governação | Âmbito aprovado; adoção local e evidências registadas |
-| G1 — Viabilidade | PROPOSTO | Alternativas técnicas, custos, riscos e implantação | Decisões de viabilidade justificadas |
-| G2 — Arquitetura | PROPOSTO | Contrato OpenAPI, modelo de ameaças, arquitetura e decisões tecnológicas | Revisão de arquitetura e segurança aprovada |
-| I3 — Núcleo e conectores | EM_REVISAO | Serviço REST e extração inicial JSON/CSV/XML/HTML implementados; cobertura ainda limitada | CI verde, testes revistos e segurança mínima aprovada |
-| I4 — Integração externa | NÃO_INICIADO | Exemplo de cliente, integração com outro repositório e autenticação | Teste de ponta a ponta reproduzível |
-| O5 — Operação | NÃO_INICIADO | CI, métricas, logs, alertas, recuperação e documentação operacional | Testes operacionais e de segurança aprovados |
-| R6 — Release | NÃO_INICIADO | Versão, notas de release, rollback e decisão formal | Autorização explícita e evidências pós-release |
+| G0 — Governação documental | EM_REVISAO | Cabeçalhos canónicos e verificador SHA-256 no CI | Todos os documentos sob verificação automatizada e hashes correspondentes |
+| G1 — Viabilidade | PROPOSTO | Alternativas, custos, riscos e topologia de deployment | Decisão de viabilidade fundamentada |
+| G2 — Arquitetura e segurança | EM_REVISAO | Contrato API, autenticação, allowlist, proxy de saída, limites, auditoria e revisão de segurança | Testes de segurança e parecer independente; decisão explícita do aprovador |
+| I3 — Núcleo técnico | EM_REVISAO | FastAPI, extração JSON/CSV/XML/HTML, CI e testes | Testes unitários/integração verdes e contrato aprovado |
+| I4 — Integração externa | NÃO_INICIADO | Cliente SDK e prova de consumo por repositório externo | Teste ponta a ponta reproduzível |
+| O5 — Operação | NÃO_INICIADO | Staging, métricas, alertas, retenção, runbooks e rollback | Testes operacionais no ambiente-alvo |
+| R6 — Release | BLOQUEADO | Release versionada, decisão formal e evidências pós-release | GO explícito e documentado após fechar todos os gates |
 
 ## Ações prioritárias
 
-1. Rever os documentos nesta branch e aprovar formalmente o âmbito.
-2. Rever o registo local de conformidade em [docs/CONFORMIDADE_GOVERNANCA.md](docs/CONFORMIDADE_GOVERNANCA.md) e fechar os desvios identificados.
-3. Definir OpenAPI para submissão de extração, estado, resultado, erros e saúde.
-4. Escolher stack, autenticação, fila e persistência após análise de alternativas.
-5. Implementar um conector simples e um cliente de outro repositório como prova de interoperabilidade.
-6. Automatizar testes de contrato, segurança e integração antes de ampliar o catálogo de conectores.
+1. Fechar CI verde para a branch de endurecimento de segurança e integrar apenas após todos os checks passarem.
+2. Provisionar proxy de saída controlado com bloqueio de redes privadas, loopback, link-local e metadata; provar DNS rebinding e egress deny-by-default.
+3. Executar testes de integração de timeout, tamanho de resposta, redirects, autenticação, rate limiting e falhas de auditoria.
+4. Fixar dependências, executar análise de vulnerabilidades e rever pinagem das GitHub Actions e imagem base.
+5. Configurar staging, retenção/backup de auditoria, alertas e rollback; testar o runbook.
+6. Obter revisão independente de arquitetura/segurança e registar decisão explícita do responsável autorizado.
+7. Só então decidir a autorização de produção; não converter um CI verde em aprovação de segurança.
 
 ## Riscos e bloqueios
 
-- Alterações e limites das fontes externas.
-- Restrições de licenciamento, privacidade e redistribuição.
-- SSRF e conteúdo externo malicioso.
-- Dependência operacional dos repositórios clientes em relação ao serviço central.
-- Custos de processamento de documentos e navegação automatizada.
-- Arquitetura e decisões tecnológicas ainda pendentes.
-
-## Evidências e estado
-
-A implementação inicial foi integrada em `main` pelo merge commit [4c4304b3b6ef0e6651144a2101190bdbacf74ed7](https://github.com/carlos-andrade/API_CARLOS/commit/4c4304b3b6ef0e6651144a2101190bdbacf74ed7). A execução CI [#39941146403](https://github.com/carlos-andrade/API_CARLOS/actions/runs/39941146403) falhou no lint `ruff check .`; o passo pytest foi ignorado. Correções de lint estão a ser preparadas nesta branch; a validação final continua pendente. Não há evidência de implantação pública nem de conformidade integral.
+- SSRF/DNS rebinding depende de proxy de saída com política de rede demonstrável; validação DNS local não elimina TOCTOU.
+- Rate limiting atual é local ao processo e requer gateway/armazenamento partilhado se houver várias réplicas.
+- Persistência SQLite foi implementada, mas backups, permissões, retenção e monitorização têm de ser validados no ambiente real.
+- Supply chain, staging, rollback e revisão independente ainda carecem de evidência.
+- Aprovação formal de produção não pode ser atribuída sem decisão explícita do aprovador.
 
 ## Histórico
 
 | Data | Alteração | Evidência |
 |---|---|---|
-| 2026-10-23 | Roadmap inicial criado com fases, dependências e critérios de saída | Branch docs/escopo-interoperabilidade-v1; aguarda revisão |
+| 2026-10-23 | Núcleo inicial e documentação integrados | PR #4 e CI inicial |
+| 2026-10-24 | Hashes canónicos recalculados e verificador integrado | PR #5; CI run 40046560279 PASS |
+| 2026-10-24 | Endurecimento de autenticação, proxy obrigatório, rate limiting, concorrência, timeout e auditoria persistente em desenvolvimento | Branch security/production-hardening-v1; CI pendente |
