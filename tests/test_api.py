@@ -10,6 +10,7 @@
 
 from fastapi.testclient import TestClient
 
+from app.config import settings
 from app.main import app
 
 
@@ -28,3 +29,19 @@ def test_readiness():
 def test_extraction_requires_url():
     response = TestClient(app).post("/v1/extractions", json={})
     assert response.status_code == 422
+
+
+
+def test_extraction_requires_bearer_when_api_keys_are_configured(monkeypatch):
+    monkeypatch.setattr(settings, "api_keys", "test-secret-token-that-is-long-enough-123456")
+    client = TestClient(app)
+    response = client.post("/v1/extractions", json={"url": "http://127.0.0.1/"})
+    assert response.status_code == 401
+
+    response = client.post(
+        "/v1/extractions",
+        headers={"Authorization": "Bearer test-secret-token-that-is-long-enough-123456"},
+        json={"url": "http://127.0.0.1/"},
+    )
+    assert response.status_code == 400
+    assert response.json()["detail"]["code"] == "URL_NOT_ALLOWED"
