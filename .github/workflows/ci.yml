@@ -30,3 +30,33 @@ jobs:
       - run: python scripts/check_canonical_hashes.py
       - run: pytest --cov=app --cov-report=term-missing
       - run: docker build -t api-carlos-egress-test ./proxy
+      - name: Runtime egress isolation test
+        run: |
+          set -euo pipefail
+          cat > .env <<'EOF'
+          APP_ENV=production
+          API_KEYS=ci-test-token-that-is-long-enough-for-production-123456
+          ALLOWED_HOSTS=security-test-target
+          EGRESS_PROXY_URL=http://egress-proxy:3128
+          RATE_LIMIT_REQUESTS=60
+          RATE_LIMIT_WINDOW_SECONDS=60
+          MAX_CONCURRENT_EXTRACTIONS=4
+          EOF
+          cleanup() { docker compose --profile security-test down -v; }
+          trap cleanup EXIT
+          docker compose --profile security-test up --build -d
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8000/health/ready; then break; fi
+            sleep 2
+          done
+          status=$(curl --silent --show-error --output /tmp/egress-response.json --write-out '%{http_code}' \
+            --header 'Authorization: Bearer ci-test-token-that-is-long-enough-for-production-123456' \
+            --header 'Content-Type: application/json' \
+            --data '{"url":"http://security-test-target/"}' \
+            http://127.0.0.1:8000/v1/extractions)
+          test "$status" = "502"
+          grep -q 'SOURCE_HTTP_ERROR' /tmp/egress-response.json
+          if docker compose exec -T api python -c 'import socket; socket.create_connection(("1.1.1.1", 443), timeout=2)'; then
+            echo "Direct API egress unexpectedly succeeded"
+            exit 1
+          fi
