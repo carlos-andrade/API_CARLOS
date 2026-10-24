@@ -6,66 +6,53 @@
 | **Projeto** | API_CARLOS |
 | **Repositório** | [carlos-andrade/API_CARLOS](https://github.com/carlos-andrade/API_CARLOS) |
 | **Tipo documental** | REGISTO DE INSPEÇÃO DE CONFORMIDADE |
-| **Fase** | F0–I3 — Governação documental e núcleo técnico |
+| **Fase** | G0–G2 — Governação documental, núcleo e segurança |
 | **Estado** | EM_REVISAO |
-| **Versão** | 0.1.0 |
-| **SHA-256 (conteúdo canónico)** | 391fb81198da13d3e5c934ad3d68507d39fb998a702f642bde67e275ed1ae679 |
-| **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
+| **Versão** | 0.2.0 |
+| **SHA-256 (conteúdo canónico)** | PENDENTE DE RECÁLCULO |
+| **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-23 |
-| **Data de atualização** | 2026-10-23 |
+| **Data de atualização** | 2026-10-24 |
 | **Responsável** | Carlos Andrade |
 | **Aprovador** | Pendente de aprovação formal |
-| **Origem** | Inspeção documental e adoção local das normas GOVERNANCA |
+| **Origem** | Inspeção documental, CI e revisão de segurança |
 | **Autoridade superior** | [Norma GOV-CAB-NORMA-001 v1.0.3](https://github.com/carlos-andrade/GOVERNANCA/blob/main/CABE%C3%87ALHO/NORMA-CABECALHO-PADRAO.md) |
 | **Cadeia de autoridade** | PROMPTS → CARTAS → LAYOUT ÚNICO → CÓDIGO |
 
 ## Objetivo e autoridade
 
-Este registo documenta a inspeção inicial de adoção da norma de cabeçalho no repositório API_CARLOS. A referência obrigatória é [GOV-CAB-NORMA-001 v1.0.3](https://github.com/carlos-andrade/GOVERNANCA/blob/main/CABE%C3%87ALHO/NORMA-CABECALHO-PADRAO.md). O roadmap deve também respeitar [GOV-CARTA-ROADMAP-001](https://github.com/carlos-andrade/GOVERNANCA/blob/main/CARTA-CONTRATO-PADRAO-ROADMAP.md) e [GOV-STD-STATUS-001](https://github.com/carlos-andrade/GOVERNANCA/blob/main/standards/status-e-percentual-de-conclusao.md).
+Regista o estado de adoção documental, integridade canónica e segurança do repositório. A norma obrigatória é [GOV-CAB-NORMA-001 v1.0.3](https://github.com/carlos-andrade/GOVERNANCA/blob/main/CABE%C3%87ALHO/NORMA-CABECALHO-PADRAO.md). O roadmap respeita [GOV-CARTA-ROADMAP-001](https://github.com/carlos-andrade/GOVERNANCA/blob/main/CARTA-CONTRATO-PADRAO-ROADMAP.md) e [GOV-STD-STATUS-001](https://github.com/carlos-andrade/GOVERNANCA/blob/main/standards/status-e-percentual-de-conclusao.md).
 
-## Âmbito inspecionado
+## Resultado verificado
 
-- Documentos Markdown: `README.md`, `ROADMAP.md`, `docs/ESCOPO.md`, `docs/ARQUITETURA.md` e `docs/CONTRATO_API.md`.
-- Código Python: `app/` e `tests/`.
-- Configuração e automação: `.env.example`, `.gitignore`, `.github/workflows/ci.yml`, `Dockerfile`, `compose.yaml` e `pyproject.toml`.
+- **Hashes canónicos:** verificação automática PASS para os seis documentos nucleares e para a revisão de arquitetura/segurança na branch de hardening, usando Python hashlib e a normalização especificada.
+- **CI da main:** PASS no commit 8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023; [run 40046560279](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40046560279). Instalação, Ruff, verificador SHA-256 e pytest passaram.
+- **Hardening de segurança:** PR #6 em revisão; adiciona autenticação fail-closed em produção, allowlist, proxy explícito obrigatório, limites, rate limiting local, concorrência limitada, auditoria SQLite e endurecimento de container.
+- **CI da branch de hardening:** os runs intermédios incluem falhas de lint/teste já corrigidas; a decisão de integração deve usar exclusivamente o resultado do HEAD mais recente.
+- **Conformidade global:** parcial e em revisão. O CI verde não prova segurança de rede, operação ou aprovação formal de produção.
 
-## Resultado da inspeção
+## Pendências de segurança e aprovação
 
-- **Cabeçalhos Markdown:** normalizados para H1 seguido de tabela de metadados com os campos obrigatórios, incluindo SHA-256 canónico, commit de referência, origem, autoridade superior e cadeia de autoridade.
-- **Código e configuração:** acrescentados blocos de comentários com identificação do artefacto, projeto, repositório, tipo, fase, estado, versão, data, responsável, origem e autoridade.
-- **Roadmap:** alinhado com a existência do núcleo técnico já integrado em `main`; o estado do CI permanece pendente de confirmação por execução.
-- **Aprovação:** pendente. Este registo não declara aprovação formal do âmbito, arquitetura, contrato ou release.
-- **Conformidade global:** parcial e em revisão. A existência dos cabeçalhos não demonstra, por si só, conformidade técnica, segurança de produção ou validação de testes.
-
-## Não conformidades e pendências
-
-1. Confirmar que todos os SHA-256 canónicos dos Markdown correspondem ao conteúdo publicado e à regra de exclusão das duas linhas de metadados.
-2. O CI [run 39941146403](https://github.com/carlos-andrade/API_CARLOS/actions/runs/39941146403) falhou em `ruff check .` com SIM117, F841, UP017, I001 e F401; o passo pytest foi ignorado. Correções de lint foram aplicadas nesta branch e aguardam nova execução CI.
-3. Rever a política de segurança SSRF, incluindo DNS rebinding, redirecionamentos, egress filtering e restrição de portas.
-4. Formalizar a aprovação do âmbito, da arquitetura e do contrato HTTP.
-5. Rever a completude dos cabeçalhos de código/configuração e validar que os comentários não alteram o comportamento dos formatos.
-6. Não declarar serviço operacional ou percentual de conclusão até haver critérios ponderados e evidência verificável.
-
-## Evidências de execução
-
-- Commit de referência anterior à presente revisão: [`5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b`](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b).
-- Branch de trabalho: `chore/governance-headers-v1`.
-- PR de conformidade: a criar após revisão final dos ficheiros.
-- Testes automatizados e CI nesta alteração: ainda não executados/verificados por este registo.
+1. Configurar o proxy de saída no ambiente real e demonstrar bloqueio de loopback, redes privadas, link-local e metadata endpoints, incluindo DNS rebinding e egress deny-by-default.
+2. Executar testes de integração de timeout, limite de bytes, redirects, autenticação, rate limiting e falhas do armazenamento de auditoria.
+3. Rever supply chain: dependências fixadas e scan de vulnerabilidades, pinagem das GitHub Actions e imagem base.
+4. Validar volume SQLite, permissões, backups, retenção, alertas, staging e rollback.
+5. Obter revisão independente de arquitetura e segurança e registar decisão explícita do aprovador autorizado.
+6. Manter NO-GO para produção até fecho dos critérios; não declarar APROVADO sem evidência.
 
 ## Critérios de aceitação
 
-- [ ] Cada Markdown começa por H1 e tabela de metadados canónica.
-- [ ] Os dois campos excluídos do cálculo SHA-256 estão identificados exatamente.
-- [ ] Os hashes canónicos foram recalculados e verificados independentemente após a última alteração de conteúdo.
-- [ ] Código/configuração contém comentários de metadados adequados ao formato.
-- [ ] Roadmap apresenta fases, gates, evidências, riscos, bloqueios e critérios de saída.
-- [ ] CI executado com sucesso, sem alegações baseadas apenas em commits.
-- [ ] Revisão de segurança concluída e aprovada.
-- [ ] Aprovação formal registada antes de promover o estado a APROVADO.
+- [x] Cabeçalhos Markdown com tabela canónica de metadados.
+- [x] Verificação SHA-256 independente automatizada no CI.
+- [x] CI da main passou lint, hashes e testes no commit indicado.
+- [ ] Proxy anti-SSRF e política de egress testados no ambiente-alvo.
+- [ ] Supply chain, staging, alertas e rollback validados.
+- [ ] Revisão independente concluída.
+- [ ] Aprovação formal registada antes de promover para APROVADO ou autorizar produção.
 
 ## Histórico
 
 | Versão | Data | Alteração |
 |---|---|---|
-| 0.1.0 | 2026-10-23 | Registo inicial de adoção e inspeção; conformidade parcial, pendências explícitas. |
+| 0.1.0 | 2026-10-23 | Registo inicial de adoção e inspeção. |
+| 0.2.0 | 2026-10-24 | Atualiza evidências SHA/CI e regista hardening e bloqueios de produção. |
