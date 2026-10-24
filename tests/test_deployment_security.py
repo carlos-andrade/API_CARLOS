@@ -23,7 +23,7 @@ def test_api_has_no_direct_egress_network():
 def test_proxy_denies_private_and_reserved_destinations():
     policy = Path("proxy/squid.conf").read_text(encoding="utf-8")
     for acl in (
-        "http_access deny to_localhost",
+        "http_access deny deny_local",
         "http_access deny to_linklocal",
         "http_access deny private_ipv4",
         "http_access deny reserved_ipv4",
