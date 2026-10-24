@@ -17,6 +17,7 @@ htmlcov/
 .venv/
 venv/
 .env
+.data/
 .env.*
 !.env.example
 dist/
