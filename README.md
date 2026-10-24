@@ -6,13 +6,13 @@
 | **Projeto** | API_CARLOS |
 | **Repositório** | [carlos-andrade/API_CARLOS](https://github.com/carlos-andrade/API_CARLOS) |
 | **Tipo documental** | ÍNDICE DO PROJETO |
-| **Fase** | I3 — Núcleo técnico inicial |
+| **Fase** | G2 — Endurecimento de segurança |
 | **Estado** | EM_REVISAO |
-| **Versão** | 0.1.0 |
-| **SHA-256 (conteúdo canónico)** | 70fd242e4cdbdc1e3a575567a8b5958b0b320d4ccbad750e880fe0186d265cc0 |
+| **Versão** | 0.2.0 |
+| **SHA-256 (conteúdo canónico)** | PENDENTE DE RECÁLCULO |
 | **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
 | **Data de criação** | 2026-10-23 |
-| **Data de atualização** | 2026-10-23 |
+| **Data de atualização** | 2026-10-24 |
 | **Responsável** | Carlos Andrade |
 | **Aprovador** | Pendente de aprovação formal |
 | **Origem** | Artefacto do projeto API_CARLOS; atualização de conformidade documental |
@@ -40,14 +40,15 @@ A modalidade de integração é uma API HTTP REST versionada, destinada a ser pu
 
 ## Estrutura técnica
 
-- `app/main.py`: aplicação FastAPI e endpoints versionados.
-- `app/extraction.py`: cliente HTTP e normalização inicial de JSON, CSV, XML e HTML.
-- `app/security.py`: validação inicial de URLs e autenticação Bearer opcional.
-- `app/config.py`: configuração por variáveis de ambiente.
-- `tests/`: testes automatizados iniciais.
-- `Dockerfile` e `compose.yaml`: empacotamento e execução local.
-- `.github/workflows/ci.yml`: pipeline de lint e testes.
-- `docs/CONTRATO_API.md`: contrato inicial e limitações conhecidas.
+- `app/main.py`: aplicação FastAPI, readiness e auditoria de pedidos.
+- `app/extraction.py`: extração HTTP com timeout total, redirects bloqueados e limite de bytes.
+- `app/security.py`: validação de URLs, allowlist, autenticação Bearer em tempo constante e rate limiting local.
+- `app/config.py`: configuração e validação fail-closed das pré-condições de produção.
+- `app/audit.py`: trilho de auditoria SQLite persistente.
+- `tests/`: testes de API, segurança e persistência de auditoria.
+- `Dockerfile` e `compose.yaml`: container não-root, filesystem read-only, volume de auditoria, healthcheck e limites de recursos.
+- `scripts/check_canonical_hashes.py`: verificação independente dos hashes canónicos no CI.
+- `.github/workflows/ci.yml`: pipeline de Ruff, hashes e testes.
 
 ## Endpoints iniciais
 
@@ -59,7 +60,7 @@ A modalidade de integração é uma API HTTP REST versionada, destinada a ser pu
 
 ## Estado e limitações
 
-O núcleo técnico inicial está integrado em `main`; a implementação continua em revisão e não está aprovada para produção. **Ainda não é um serviço de produção e não está declarado operacional publicamente.** A execução de testes e a validação do pipeline CI continuam pendentes de evidência. A proteção contra SSRF necessita de defesa adicional a nível de rede/proxy e testes de segurança antes de exposição pública. A primeira versão ainda não tem fila assíncrona, persistência, rate limiting, conectores PDF, SDKs nem auditoria persistente.
+O hardening de segurança foi integrado em `main` no commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`; o CI [run 40047306146](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047306146) passou instalação, Ruff, verificação SHA-256 e pytest. **A API continua NO-GO para produção pública.** O ambiente de produção tem de configurar `API_KEYS` com tokens fortes, `ALLOWED_HOSTS`, `EGRESS_PROXY_URL` apontando para um proxy gerido com política anti-SSRF e `AUDIT_DB_PATH`. Ainda faltam testes de rede no ambiente-alvo, verificação de supply chain, staging/rollback e revisão independente. O rate limiting é local ao processo e requer gateway partilhado para múltiplas réplicas. Ainda não existem fila assíncrona, conectores PDF nem SDKs.
 
 ## Documentos
 
@@ -68,5 +69,6 @@ O núcleo técnico inicial está integrado em `main`; a implementação continua
 - [Roadmap](ROADMAP.md)
 - [Contrato da API](docs/CONTRATO_API.md)
 - [Registo de conformidade GOVERNANCA](docs/CONFORMIDADE_GOVERNANCA.md)
+- [Revisão de arquitetura e segurança para produção](docs/REVISAO_ARQUITETURA_SEGURANCA_PRODUCAO.md)
 
 A referência à GOVERNANCA não declara conformidade integral. A conformidade deve ser demonstrada por inspeção e evidências locais.
