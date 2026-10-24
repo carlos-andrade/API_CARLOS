@@ -9,7 +9,7 @@
 | **Fase** | G0–G2 — Governação documental, núcleo e segurança |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.3.0 |
-| **SHA-256 (conteúdo canónico)** | cdaabf097216a1076d10821d00a803b64ac000a3ec61ddee31cc8853acccb06b |
+| **SHA-256 (conteúdo canónico)** | PENDENTE DE RECÁLCULO |
 | **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-24 |
@@ -29,11 +29,12 @@ Regista o estado de adoção documental, integridade canónica e segurança do r
 - **CI da main após hardening:** PASS no commit 1e61e4dc5d89d9ecf59702288d0081824fc7a908; [run 40047306146](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047306146). Instalação, Ruff, verificador SHA-256 e pytest passaram.
 - **Hardening de segurança:** PR #6 integrado na main no commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`; adiciona autenticação fail-closed em produção, allowlist, proxy explícito obrigatório, limites, rate limiting local, concorrência limitada, auditoria SQLite e endurecimento de container.
 - **Integridade documental:** hashes dos sete documentos sob controlo passaram no CI do commit indicado.
+- **Proxy de saída:** PR #8 propõe serviço Squid em rede isolada com ACLs para loopback, link-local, redes privadas e endereços reservados; a validação em runtime ainda não está demonstrada.
 - **Conformidade global:** parcial e em revisão. O CI verde não prova segurança de rede, operação ou aprovação formal de produção.
 
 ## Pendências de segurança e aprovação
 
-1. Configurar o proxy de saída no ambiente real e demonstrar bloqueio de loopback, redes privadas, link-local e metadata endpoints, incluindo DNS rebinding e egress deny-by-default.
+1. Rever e integrar o proxy Squid isolado; executar testes no ambiente-alvo para loopback, redes privadas, link-local, metadata endpoints, DNS rebinding e egress deny-by-default.
 2. Executar testes de integração de timeout, limite de bytes, redirects, autenticação, rate limiting e falhas do armazenamento de auditoria.
 3. Rever supply chain: dependências fixadas e scan de vulnerabilidades, pinagem das GitHub Actions e imagem base.
 4. Validar volume SQLite, permissões, backups, retenção, alertas, staging e rollback.
