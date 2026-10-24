@@ -1,14 +1,15 @@
 # API-CARLOS | app/extraction.py
 # ID: API-CARLOS-SRC-APP-EXTRACTION-PY
 # Projeto: API_CARLOS | Repositório: https://github.com/carlos-andrade/API_CARLOS
-# Tipo documental: MÓDULO PYTHON | Fase: I3 — Núcleo técnico inicial | Estado: EM_REVISAO
-# Versão: 0.1.0 | Data de atualização: 2026-10-23 | Responsável: Carlos Andrade
+# Tipo documental: MÓDULO PYTHON | Fase: G2 — Endurecimento de segurança | Estado: EM_REVISAO
+# Versão: 0.2.1 | Data de atualização: 2026-10-24 | Responsável: Carlos Andrade
 # Aprovador: Pendente de aprovação formal
-# Origem: artefacto do projeto API_CARLOS
+# Origem: Endurecimento do cliente de extração HTTP
 # Autoridade superior: https://github.com/carlos-andrade/GOVERNANCA/blob/main/CABE%C3%87ALHO/NORMA-CABECALHO-PADRAO.md
 # Cadeia de autoridade: PROMPTS → CARTAS → LAYOUT ÚNICO → CÓDIGO
 
-"""Núcleo inicial de extração: HTTP(S) e normalização por tipo de conteúdo."""
+"""Extração HTTP com redirects bloqueados e limites de tempo e conteúdo."""
+import asyncio
 import csv
 import io
 import json
@@ -25,35 +26,63 @@ from app.security import validate_public_url
 
 async def extract_url(url: str) -> dict:
     safe_url = validate_public_url(url)
-    timeout = httpx.Timeout(settings.request_timeout_seconds)
+    timeout = httpx.Timeout(
+        settings.request_timeout_seconds,
+        connect=min(5.0, settings.request_timeout_seconds),
+    )
     try:
-        async with httpx.AsyncClient(
-            timeout=timeout,
-            follow_redirects=False,
-            headers={"User-Agent": "API_CARLOS/0.1 (+public-data-extraction; contact: operator)"},
-        ) as client, client.stream("GET", safe_url) as response:
+        async with (
+            asyncio.timeout(settings.request_timeout_seconds),
+            httpx.AsyncClient(
+                timeout=timeout,
+                follow_redirects=False,
+                trust_env=False,
+                proxy=settings.egress_proxy_url or None,
+                headers={"User-Agent": "API_CARLOS/0.2 (+public-data-extraction)"},
+            ) as client,
+            client.stream("GET", safe_url) as response,
+        ):
             if 300 <= response.status_code < 400:
-                raise HTTPException(status_code=400, detail={
-                    "code": "REDIRECT_BLOCKED", "message": "Redirecionamentos estão bloqueados; valide o destino separadamente."
-                })
+                raise HTTPException(
+                    status_code=400,
+                    detail={
+                        "code": "REDIRECT_BLOCKED",
+                        "message": "Redirecionamentos bloqueados; valide o destino separadamente.",
+                    },
+                )
             response.raise_for_status()
             chunks, total = [], 0
             async for chunk in response.aiter_bytes():
                 total += len(chunk)
                 if total > settings.max_response_bytes:
-                    raise HTTPException(status_code=413, detail={
-                        "code": "RESPONSE_TOO_LARGE", "message": "A resposta excede o limite configurado."
-                    })
+                    raise HTTPException(
+                        status_code=413,
+                        detail={
+                            "code": "RESPONSE_TOO_LARGE",
+                            "message": "A resposta excede o limite configurado.",
+                        },
+                    )
                 chunks.append(chunk)
             body = b"".join(chunks)
             content_type = response.headers.get("content-type", "").split(";")[0].lower()
             status_code = response.status_code
     except HTTPException:
         raise
+    except TimeoutError as exc:
+        raise HTTPException(
+            status_code=504,
+            detail={"code": "SOURCE_TIMEOUT", "message": "A fonte excedeu o tempo limite."},
+        ) from exc
     except httpx.TimeoutException as exc:
-        raise HTTPException(status_code=504, detail={"code": "SOURCE_TIMEOUT", "message": "A fonte excedeu o tempo limite."}) from exc
+        raise HTTPException(
+            status_code=504,
+            detail={"code": "SOURCE_TIMEOUT", "message": "A fonte excedeu o tempo limite."},
+        ) from exc
     except httpx.HTTPError as exc:
-        raise HTTPException(status_code=502, detail={"code": "SOURCE_HTTP_ERROR", "message": "Falha ao consultar a fonte."}) from exc
+        raise HTTPException(
+            status_code=502,
+            detail={"code": "SOURCE_HTTP_ERROR", "message": "Falha ao consultar a fonte."},
+        ) from exc
 
     text = body.decode("utf-8-sig", errors="replace")[:settings.max_text_chars]
     data, parser = text, "text"
@@ -73,7 +102,13 @@ async def extract_url(url: str) -> dict:
                 "links": [a.get("href") for a in soup.find_all("a", href=True)[:500]],
             }, "html"
     except (json.JSONDecodeError, csv.Error, ET.ParseError) as exc:
-        raise HTTPException(status_code=422, detail={"code": "PARSE_ERROR", "message": "Conteúdo recebido não corresponde ao formato anunciado."}) from exc
+        raise HTTPException(
+            status_code=422,
+            detail={
+                "code": "PARSE_ERROR",
+                "message": "Conteúdo recebido não corresponde ao formato anunciado.",
+            },
+        ) from exc
 
     return {
         "source_url": safe_url,

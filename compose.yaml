@@ -15,6 +15,10 @@ services:
       - "127.0.0.1:8000:8000"
     env_file:
       - .env
+    environment:
+      AUDIT_DB_PATH: /data/audit.sqlite3
+    volumes:
+      - audit-data:/data
     read_only: true
     tmpfs:
       - /tmp
@@ -22,4 +26,11 @@ services:
       - no-new-privileges:true
     cap_drop:
       - ALL
+    init: true
+    pids_limit: 128
+    mem_limit: 512m
+    cpus: 1.0
     restart: unless-stopped
+
+volumes:
+  audit-data:
