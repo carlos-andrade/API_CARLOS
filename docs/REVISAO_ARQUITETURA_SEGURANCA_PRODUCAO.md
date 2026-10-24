@@ -8,8 +8,8 @@
 | **Tipo documental** | REVISÃO DE ARQUITETURA E SEGURANÇA |
 | **Fase** | G2 — Arquitetura e autorização de produção |
 | **Estado** | EM_REVISAO |
-| **Versão** | 1.2.0 |
-| **SHA-256 (conteúdo canónico)** | aa12e27eb79b6d76e1f0214e2813e28248761441aa600e76213e1a20f71ca028 |
+| **Versão** | 1.3.0 |
+| **SHA-256 (conteúdo canónico)** | PENDENTE DE RECÁLCULO |
 | **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-24 |
 | **Data de atualização** | 2026-10-24 |
@@ -29,6 +29,7 @@
 - Tokens Bearer são comparados em tempo constante.
 - Validação de URL rejeita esquemas diferentes de HTTP(S), credenciais embutidas, nomes locais e respostas DNS que incluam qualquer endereço não global.
 - Redirecionamentos HTTP são bloqueados; o cliente HTTP não usa variáveis de proxy implícitas do ambiente (trust_env=False) e aplica o proxy explicitamente configurado.
+- A branch de segurança acrescenta um serviço Squid isolado: a API fica apenas numa rede Docker interna e o proxy tem uma rede de saída separada; ACLs negam loopback, link-local, redes privadas e endereços reservados.
 - São aplicados timeout total, limite de bytes recebidos, limite de concorrência e rate limit local por endereço de cliente.
 - Eventos de pedido são emitidos como JSON sem token nem query string e persistidos em SQLite quando AUDIT_DB_PATH está configurado.
 - O Compose mantém a porta publicada em loopback, filesystem raiz somente de leitura, volume dedicado de auditoria, limites de CPU/memória/processos, init, healthcheck, remove capabilities e ativa no-new-privileges.
@@ -37,7 +38,7 @@
 
 | ID | Estado | Fecho exigido |
 |---|---|---|
-| SEC-01 — SSRF/DNS rebinding | PARCIAL | Configurar e testar proxy de saída gerido que resolva o destino no momento da ligação e bloqueie loopback, redes privadas, link-local e metadata endpoints IPv4/IPv6; demonstrar egress deny-by-default. O teste DNS local não substitui esse controlo. |
+| SEC-01 — SSRF/DNS rebinding | PARCIAL | Proxy Squid e isolamento de rede propostos em PR #8; falta CI final, build/execução real do Compose e teste reproduzível contra loopback, redes privadas, link-local, metadata endpoints e DNS rebinding. |
 | SEC-02 — Limites de transporte | PARCIAL | Testes de integração para timeout, tamanho máximo, redirects e comportamento do proxy, incluindo respostas comprimidas e lentas. |
 | SEC-03 — Autenticação | IMPLEMENTADO NO CÓDIGO; CONFIGURAÇÃO PENDENTE | Provisionar chaves fortes fora do repositório, validar rotação e confirmar arranque fail-closed no ambiente de produção. |
 | SEC-04 — Abuso e isolamento | PARCIAL | O rate limit atual é local ao processo. Em múltiplas réplicas, usar gateway ou armazenamento partilhado; validar quotas e carga. |
@@ -52,7 +53,7 @@
 - **Segurança para produção:** **NÃO APROVADA (NO-GO)** até ao fecho dos bloqueios e validação no ambiente-alvo.
 - **Aprovador:** pendente de designação/decisão explícita do responsável do projeto.
 - **Data da decisão:** 2026-10-24.
-- **Evidência:** PR #6 integrado no commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`; CI [run 40047306146](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047306146) passou Ruff, verificação SHA-256 e pytest.
+- **Evidência:** PR #6 integrado no commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`; CI [run 40047306146](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047306146) passou Ruff, verificação SHA-256 e pytest. A proposta de proxy está em PR #8.
 
 ## 5. Critérios para mudar para GO
 
@@ -69,3 +70,4 @@
 | 1.0.0 | 2026-10-24 | Revisão inicial com decisão NO-GO e critérios de autorização. |
 | 1.1.0 | 2026-10-24 | Regista controlos implementados e separa bloqueios locais dos requisitos de produção ainda não demonstrados. |
 | 1.2.0 | 2026-10-24 | Atualiza evidência após integração do hardening e CI verde; decisão de produção permanece NO-GO. |
+| 1.3.0 | 2026-10-24 | Regista proxy Squid isolado proposto e mantém bloqueio até teste real e revisão independente. |
