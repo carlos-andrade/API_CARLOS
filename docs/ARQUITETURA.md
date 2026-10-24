@@ -9,7 +9,7 @@
 | **Fase** | G2 — Arquitetura e requisitos |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.1.0 |
-| **SHA-256 (conteúdo canónico)** | b552fe3d7f5bb565adb2255dad8526934d8e4ce45d66f79b8b5aadfaccc90a14 |
+| **SHA-256 (conteúdo canónico)** | 74cde4b71651cc5fc31472e0e35e52eaf54ca1d22c94e3aff7ef7ebe1b6ae8d8 |
 | **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-23 |

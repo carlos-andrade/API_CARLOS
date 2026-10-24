@@ -9,7 +9,7 @@
 | **Fase** | F0–R6 — Ciclo de vida do projeto |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.1.0 |
-| **SHA-256 (conteúdo canónico)** | 9c56337b633e3a0a00baaca01bd8cc383e168450bf9f1ea7c1641d132d50468b |
+| **SHA-256 (conteúdo canónico)** | 8d27b5fb9fee8d634a4d1986d50470dd008941e4ca4aae6a0aa9d513534496bd |
 | **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-23 |

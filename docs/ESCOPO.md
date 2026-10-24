@@ -9,7 +9,7 @@
 | **Fase** | F0 — Definição de âmbito e governação |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.1.0 |
-| **SHA-256 (conteúdo canónico)** | 868cb9d2f088a94530d8ae7cac26224e430433af458bf471d728a46ee1cb6ac9 |
+| **SHA-256 (conteúdo canónico)** | 6f1313ba2c38d7ddf318086cbf4e3cb7621cb6908a03a70d3b60974f4f3007b4 |
 | **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-23 |
