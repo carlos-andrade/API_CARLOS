@@ -10,7 +10,7 @@
 
 FROM debian:bookworm-slim
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends squid ca-certificates \
+    && apt-get install -y --no-install-recommends squid ca-certificates netcat-openbsd \
     && rm -rf /var/lib/apt/lists/*
 COPY squid.conf /etc/squid/squid.conf
 RUN squid -k parse -f /etc/squid/squid.conf

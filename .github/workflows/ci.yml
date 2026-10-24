@@ -30,3 +30,47 @@ jobs:
       - run: python scripts/check_canonical_hashes.py
       - run: pytest --cov=app --cov-report=term-missing
       - run: docker build -t api-carlos-egress-test ./proxy
+      - name: Runtime egress isolation test
+        run: |
+          set -euo pipefail
+          cat > .env <<'EOF'
+          APP_ENV=production
+          API_KEYS=ci-test-token-that-is-long-enough-for-production-123456
+          ALLOWED_HOSTS=security-test-target
+          EGRESS_PROXY_URL=http://egress-proxy:3128
+          RATE_LIMIT_REQUESTS=60
+          RATE_LIMIT_WINDOW_SECONDS=60
+          MAX_CONCURRENT_EXTRACTIONS=4
+          EOF
+          cleanup() { docker compose --profile security-test logs --no-color || true; docker compose --profile security-test down -v; }
+          trap cleanup EXIT
+          timeout 180s docker compose --profile security-test up --build -d
+          proxy_id=$(docker compose ps -q egress-proxy)
+          proxy_health=starting
+          for attempt in $(seq 1 30); do
+            proxy_health=$(docker inspect --format '{{.State.Health.Status}}' "$proxy_id")
+            if [ "$proxy_health" = healthy ]; then break; fi
+            sleep 2
+          done
+          if [ "$proxy_health" != healthy ]; then
+            docker compose --profile security-test logs egress-proxy
+            echo "Egress proxy failed its healthcheck"
+            exit 1
+          fi
+          api_id=$(docker compose ps -q api)
+          api_health=starting
+          for attempt in $(seq 1 30); do
+            api_health=$(docker inspect --format '{{.State.Health.Status}}' "$api_id")
+            if [ "$api_health" = healthy ]; then break; fi
+            sleep 2
+          done
+          if [ "$api_health" != healthy ]; then
+            docker compose --profile security-test logs api egress-proxy
+            echo "API failed its readiness healthcheck"
+            exit 1
+          fi
+          docker compose exec -T api python -c "import http.client; c=http.client.HTTPConnection('127.0.0.1', 8000, timeout=10); c.request('POST', '/v1/extractions', b'{\"url\":\"http://security-test-target/\"}', {'Authorization': 'Bearer ci-test-token-that-is-long-enough-for-production-123456', 'Content-Type': 'application/json'}); r=c.getresponse(); b=r.read(); assert r.status == 502 and b'SOURCE_HTTP_ERROR' in b, (r.status, b); c.close()"
+          if docker compose exec -T api python -c 'import socket; socket.create_connection(("1.1.1.1", 443), timeout=2)'; then
+            echo "Direct API egress unexpectedly succeeded"
+            exit 1
+          fi

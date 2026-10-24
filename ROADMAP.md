@@ -9,7 +9,7 @@
 | **Fase** | G0–R6 — Ciclo de vida do projeto |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.2.0 |
-| **SHA-256 (conteúdo canónico)** | 5ce80aacae2ad69bab937bd0201730c940de9785022e3963123b6ac3fe124f9c |
+| **SHA-256 (conteúdo canónico)** | 59e5659ab0989e4f3bcdef4d10ddf98a97fdbd482f50b10cbb70b6cb44dc4c0f |
 | **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-24 |
@@ -22,7 +22,7 @@
 ## Painel executivo
 
 - **Missão:** disponibilizar uma API modular, versionada e auditável para extração de dados públicos, com contrato estável para consumo por outros repositórios.
-- **Estado técnico:** hardening e proxy Squid isolado integrados em main; validação runtime do proxy e aprovação de produção continuam pendentes.
+- **Estado técnico:** hardening e proxy Squid isolado integrados; teste runtime de isolamento e bloqueio de destino privado passou no CI. Validação operacional fora do CI e aprovação de produção continuam pendentes.
 - **CI mais recente na main:** PASS — run [40047306146](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047306146), commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`. Instalação, Ruff, verificação SHA-256 e pytest passaram.
 - **Hashes canónicos:** verificação automática PASS para seis documentos nucleares e a revisão de arquitetura/segurança.
 - **Produção:** NO-GO. O código exige configuração de autenticação, allowlist, proxy de saída e auditoria persistente; ainda faltam evidências no ambiente-alvo e revisão independente.
@@ -42,7 +42,7 @@
 
 ## Ações prioritárias
 
-1. Executar o Compose no ambiente-alvo e provar bloqueio de loopback, redes privadas, metadata endpoints e DNS rebinding através do proxy Squid.
+1. Repetir o teste de egress no ambiente-alvo real e provar bloqueio de loopback, redes privadas, metadata endpoints e DNS rebinding através do proxy Squid.
 2. Provisionar proxy de saída controlado com bloqueio de redes privadas, loopback, link-local e metadata; provar DNS rebinding e egress deny-by-default.
 3. Executar testes de integração de timeout, tamanho de resposta, redirects, autenticação, rate limiting e falhas de auditoria.
 4. Fixar dependências, executar análise de vulnerabilidades e rever pinagem das GitHub Actions e imagem base.
