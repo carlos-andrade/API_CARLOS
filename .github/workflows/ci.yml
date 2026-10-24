@@ -27,4 +27,5 @@ jobs:
           cache: pip
       - run: python -m pip install -e ".[dev]"
       - run: ruff check .
+      - run: python scripts/verify_canonical_hashes.py
       - run: pytest --cov=app --cov-report=term-missing
