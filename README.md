@@ -9,7 +9,7 @@
 | **Fase** | G2 — Endurecimento de segurança |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.2.0 |
-| **SHA-256 (conteúdo canónico)** | e7b63b5f3a6ecf62c9efcaab208e5dddd0de3e8761396e1e75ed7e6d74ee96ef |
+| **SHA-256 (conteúdo canónico)** | 54c343e63a18d040e4c67450a9b3a620951e509ef36a2a4fd6ad99a001f04643 |
 | **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-24 |
@@ -45,6 +45,7 @@ A modalidade de integração é uma API HTTP REST versionada, destinada a ser pu
 - `app/security.py`: validação de URLs, allowlist, autenticação Bearer em tempo constante e rate limiting local.
 - `app/config.py`: configuração e validação fail-closed das pré-condições de produção.
 - `app/audit.py`: trilho de auditoria SQLite persistente.
+- `proxy/squid.conf` e `proxy/Dockerfile`: proxy de saída com bloqueio de redes privadas e reserved ranges; a validação runtime ainda é obrigatória.
 - `tests/`: testes de API, segurança e persistência de auditoria.
 - `Dockerfile` e `compose.yaml`: container não-root, filesystem read-only, volume de auditoria, healthcheck e limites de recursos.
 - `scripts/check_canonical_hashes.py`: verificação independente dos hashes canónicos no CI.
@@ -60,7 +61,7 @@ A modalidade de integração é uma API HTTP REST versionada, destinada a ser pu
 
 ## Estado e limitações
 
-O hardening de segurança foi integrado em `main` no commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`; o CI [run 40047306146](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047306146) passou instalação, Ruff, verificação SHA-256 e pytest. **A API continua NO-GO para produção pública.** O ambiente de produção tem de configurar `API_KEYS` com tokens fortes, `ALLOWED_HOSTS`, `EGRESS_PROXY_URL` apontando para um proxy gerido com política anti-SSRF e `AUDIT_DB_PATH`. Ainda faltam testes de rede no ambiente-alvo, verificação de supply chain, staging/rollback e revisão independente. O rate limiting é local ao processo e requer gateway partilhado para múltiplas réplicas. Ainda não existem fila assíncrona, conectores PDF nem SDKs.
+O hardening de segurança foi integrado em `main` no commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`; o CI [run 40047306146](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047306146) passou instalação, Ruff, verificação SHA-256 e pytest. **A API continua NO-GO para produção pública.** O ambiente de produção tem de configurar `API_KEYS` com tokens fortes, `ALLOWED_HOSTS`, `EGRESS_PROXY_URL` apontando para um proxy gerido com política anti-SSRF e `AUDIT_DB_PATH`. Ainda faltam testes de rede no ambiente-alvo para comprovar o proxy Squid e o bloqueio de egress, verificação de supply chain, staging/rollback e revisão independente. O rate limiting é local ao processo e requer gateway partilhado para múltiplas réplicas. Ainda não existem fila assíncrona, conectores PDF nem SDKs.
 
 ## Documentos
 

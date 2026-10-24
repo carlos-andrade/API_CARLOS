@@ -83,3 +83,18 @@ def test_production_rejects_invalid_proxy_scheme():
     )
     with pytest.raises(RuntimeError, match="EGRESS_PROXY_URL"):
         settings.validate_production()
+
+
+
+def test_production_hostname_uses_egress_proxy_resolution(monkeypatch):
+    from app.config import settings
+
+    monkeypatch.setattr(settings, "app_env", "production")
+    monkeypatch.setattr(settings, "allowed_hosts", "example.com")
+    monkeypatch.setattr(settings, "egress_proxy_url", "http://egress-proxy:3128")
+
+    def fail_if_resolved(*args, **kwargs):
+        raise AssertionError("Production hostname must be resolved by the egress proxy")
+
+    monkeypatch.setattr(socket, "getaddrinfo", fail_if_resolved)
+    assert validate_public_url("https://example.com/data") == "https://example.com/data"
