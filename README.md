@@ -9,7 +9,7 @@
 | **Fase** | G2 — Endurecimento de segurança |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.2.0 |
-| **SHA-256 (conteúdo canónico)** | 54c343e63a18d040e4c67450a9b3a620951e509ef36a2a4fd6ad99a001f04643 |
+| **SHA-256 (conteúdo canónico)** | PENDENTE DE RECÁLCULO |
 | **Commit de referência (versão anterior)** | [5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b](https://github.com/carlos-andrade/API_CARLOS/commit/5134e2d4c4b6ebd717e1656cbe44b9fbd97f125b) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-24 |
@@ -61,7 +61,7 @@ A modalidade de integração é uma API HTTP REST versionada, destinada a ser pu
 
 ## Estado e limitações
 
-O hardening de segurança foi integrado em `main` no commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`; o CI [run 40047306146](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047306146) passou instalação, Ruff, verificação SHA-256 e pytest. **A API continua NO-GO para produção pública.** O ambiente de produção tem de configurar `API_KEYS` com tokens fortes, `ALLOWED_HOSTS`, `EGRESS_PROXY_URL` apontando para um proxy gerido com política anti-SSRF e `AUDIT_DB_PATH`. Ainda faltam testes de rede no ambiente-alvo para comprovar o proxy Squid e o bloqueio de egress, verificação de supply chain, staging/rollback e revisão independente. O rate limiting é local ao processo e requer gateway partilhado para múltiplas réplicas. Ainda não existem fila assíncrona, conectores PDF nem SDKs.
+O hardening inicial foi integrado em `main` no commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`; o proxy Squid isolado foi integrado no commit `0948ceaaeeee387c06849f49d9286753fcc818db`. O CI da branch do proxy [run 40047652526](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047652526) passou Ruff, hashes, pytest e build da imagem Squid. A validação pós-merge na main está em execução. **A API continua NO-GO para produção pública.** O ambiente de produção tem de configurar `API_KEYS` com tokens fortes, `ALLOWED_HOSTS`, `EGRESS_PROXY_URL` apontando para um proxy gerido com política anti-SSRF e `AUDIT_DB_PATH`. Ainda faltam testes de rede no ambiente-alvo para comprovar o proxy Squid e o bloqueio de egress, verificação de supply chain, staging/rollback e revisão independente. O rate limiting é local ao processo e requer gateway partilhado para múltiplas réplicas. Ainda não existem fila assíncrona, conectores PDF nem SDKs.
 
 ## Documentos
 
