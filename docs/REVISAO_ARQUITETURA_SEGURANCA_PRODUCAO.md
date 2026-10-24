@@ -8,8 +8,8 @@
 | **Tipo documental** | REVISÃO DE ARQUITETURA E SEGURANÇA |
 | **Fase** | G2 — Arquitetura e autorização de produção |
 | **Estado** | EM_REVISAO |
-| **Versão** | 1.1.0 |
-| **SHA-256 (conteúdo canónico)** | a958a9a945f79b853420cb78c7cc4e9347423fd62082b2584fbb6601bef37348 |
+| **Versão** | 1.2.0 |
+| **SHA-256 (conteúdo canónico)** | aa12e27eb79b6d76e1f0214e2813e28248761441aa600e76213e1a20f71ca028 |
 | **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-24 |
 | **Data de atualização** | 2026-10-24 |
@@ -52,7 +52,7 @@
 - **Segurança para produção:** **NÃO APROVADA (NO-GO)** até ao fecho dos bloqueios e validação no ambiente-alvo.
 - **Aprovador:** pendente de designação/decisão explícita do responsável do projeto.
 - **Data da decisão:** 2026-10-24.
-- **Evidência:** CI da main no commit 8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023 — [execução 40046560279](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40046560279).
+- **Evidência:** PR #6 integrado no commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`; CI [run 40047306146](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047306146) passou Ruff, verificação SHA-256 e pytest.
 
 ## 5. Critérios para mudar para GO
 
@@ -68,3 +68,4 @@
 |---|---|---|
 | 1.0.0 | 2026-10-24 | Revisão inicial com decisão NO-GO e critérios de autorização. |
 | 1.1.0 | 2026-10-24 | Regista controlos implementados e separa bloqueios locais dos requisitos de produção ainda não demonstrados. |
+| 1.2.0 | 2026-10-24 | Atualiza evidência após integração do hardening e CI verde; decisão de produção permanece NO-GO. |

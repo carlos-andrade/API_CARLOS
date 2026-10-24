@@ -8,8 +8,8 @@
 | **Tipo documental** | REGISTO DE INSPEÇÃO DE CONFORMIDADE |
 | **Fase** | G0–G2 — Governação documental, núcleo e segurança |
 | **Estado** | EM_REVISAO |
-| **Versão** | 0.2.0 |
-| **SHA-256 (conteúdo canónico)** | 76508d9aa74fd0bdc252960ef8150e73fee8d845de1f0f5dcd05af34cf7d60ab |
+| **Versão** | 0.3.0 |
+| **SHA-256 (conteúdo canónico)** | cdaabf097216a1076d10821d00a803b64ac000a3ec61ddee31cc8853acccb06b |
 | **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-24 |
@@ -26,9 +26,9 @@ Regista o estado de adoção documental, integridade canónica e segurança do r
 ## Resultado verificado
 
 - **Hashes canónicos:** verificação automática PASS para os seis documentos nucleares e para a revisão de arquitetura/segurança na branch de hardening, usando Python hashlib e a normalização especificada.
-- **CI da main:** PASS no commit 8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023; [run 40046560279](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40046560279). Instalação, Ruff, verificador SHA-256 e pytest passaram.
-- **Hardening de segurança:** PR #6 em revisão; adiciona autenticação fail-closed em produção, allowlist, proxy explícito obrigatório, limites, rate limiting local, concorrência limitada, auditoria SQLite e endurecimento de container.
-- **CI da branch de hardening:** os runs intermédios incluem falhas de lint/teste já corrigidas; a decisão de integração deve usar exclusivamente o resultado do HEAD mais recente.
+- **CI da main após hardening:** PASS no commit 1e61e4dc5d89d9ecf59702288d0081824fc7a908; [run 40047306146](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047306146). Instalação, Ruff, verificador SHA-256 e pytest passaram.
+- **Hardening de segurança:** PR #6 integrado na main no commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`; adiciona autenticação fail-closed em produção, allowlist, proxy explícito obrigatório, limites, rate limiting local, concorrência limitada, auditoria SQLite e endurecimento de container.
+- **Integridade documental:** hashes dos sete documentos sob controlo passaram no CI do commit indicado.
 - **Conformidade global:** parcial e em revisão. O CI verde não prova segurança de rede, operação ou aprovação formal de produção.
 
 ## Pendências de segurança e aprovação
@@ -56,3 +56,4 @@ Regista o estado de adoção documental, integridade canónica e segurança do r
 |---|---|---|
 | 0.1.0 | 2026-10-23 | Registo inicial de adoção e inspeção. |
 | 0.2.0 | 2026-10-24 | Atualiza evidências SHA/CI e regista hardening e bloqueios de produção. |
+| 0.3.0 | 2026-10-24 | Confirma integração do hardening e CI verde na main; mantém NO-GO até validação operacional e revisão independente. |

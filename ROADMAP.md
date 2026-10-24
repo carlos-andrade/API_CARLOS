@@ -9,7 +9,7 @@
 | **Fase** | G0–R6 — Ciclo de vida do projeto |
 | **Estado** | EM_REVISAO |
 | **Versão** | 0.2.0 |
-| **SHA-256 (conteúdo canónico)** | d3f3ebca870fe001f096574117644792debbc2cf1d30bc4bd5b88e8ef3edf03d |
+| **SHA-256 (conteúdo canónico)** | b2b156b76b47fa1f9c4d65ede969d0b88a70d97f89528d5c9a22375812322861 |
 | **Commit de referência (versão anterior)** | [8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023](https://github.com/carlos-andrade/API_CARLOS/commit/8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023) |
 | **Data de criação** | 2026-10-23 |
 | **Data de atualização** | 2026-10-24 |
@@ -22,9 +22,9 @@
 ## Painel executivo
 
 - **Missão:** disponibilizar uma API modular, versionada e auditável para extração de dados públicos, com contrato estável para consumo por outros repositórios.
-- **Estado técnico:** núcleo API e controlos iniciais integrados; endurecimento de segurança em revisão.
-- **CI mais recente na main:** PASS — run [40046560279](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40046560279), commit `8f8b6046ac2c94cb2b6d2f48d86ec12da8ce9023`. Instalação, Ruff, verificação SHA-256 e pytest passaram.
-- **Hashes canónicos:** verificação automática integrada no CI para os seis documentos nucleares; o registo de revisão de segurança está a ser incluído no conjunto documental de controlo.
+- **Estado técnico:** núcleo API e hardening inicial integrados em main; operação de produção continua bloqueada.
+- **CI mais recente na main:** PASS — run [40047306146](https://github.com/carlos-andrade/API_CARLOS/actions/runs/40047306146), commit `1e61e4dc5d89d9ecf59702288d0081824fc7a908`. Instalação, Ruff, verificação SHA-256 e pytest passaram.
+- **Hashes canónicos:** verificação automática PASS para seis documentos nucleares e a revisão de arquitetura/segurança.
 - **Produção:** NO-GO. O código exige configuração de autenticação, allowlist, proxy de saída e auditoria persistente; ainda faltam evidências no ambiente-alvo e revisão independente.
 - **Percentagem global:** não calculada. A conclusão ponderada exige baseline de critérios e evidências validadas; não atribuir percentagens sem essa baseline.
 
@@ -42,7 +42,7 @@
 
 ## Ações prioritárias
 
-1. Fechar CI verde para a branch de endurecimento de segurança e integrar apenas após todos os checks passarem.
+1. Configurar e provar proxy de saída anti-SSRF e egress deny-by-default no ambiente-alvo.
 2. Provisionar proxy de saída controlado com bloqueio de redes privadas, loopback, link-local e metadata; provar DNS rebinding e egress deny-by-default.
 3. Executar testes de integração de timeout, tamanho de resposta, redirects, autenticação, rate limiting e falhas de auditoria.
 4. Fixar dependências, executar análise de vulnerabilidades e rever pinagem das GitHub Actions e imagem base.
@@ -64,4 +64,4 @@
 |---|---|---|
 | 2026-10-23 | Núcleo inicial e documentação integrados | PR #4 e CI inicial |
 | 2026-10-24 | Hashes canónicos recalculados e verificador integrado | PR #5; CI run 40046560279 PASS |
-| 2026-10-24 | Endurecimento de autenticação, proxy obrigatório, rate limiting, concorrência, timeout e auditoria persistente em desenvolvimento | Branch security/production-hardening-v1; CI pendente |
+| 2026-10-24 | Hardening de autenticação, proxy obrigatório, rate limiting, concorrência, timeout, auditoria persistente e container endurecido integrados | PR #6; CI main run 40047306146 PASS |
