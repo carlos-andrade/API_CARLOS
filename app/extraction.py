@@ -33,6 +33,7 @@ async def extract_url(url: str) -> dict:
                 timeout=timeout,
                 follow_redirects=False,
                 trust_env=False,
+                proxy=settings.egress_proxy_url or None,
                 headers={"User-Agent": "API_CARLOS/0.2 (+public-data-extraction)"},
             ) as client:
                 async with client.stream("GET", safe_url) as response:
