@@ -57,10 +57,18 @@ jobs:
             echo "Egress proxy failed its healthcheck"
             exit 1
           fi
+          api_id=$(docker compose ps -q api)
+          api_health=starting
           for attempt in $(seq 1 30); do
-            if curl --fail --silent http://127.0.0.1:8000/health/ready; then break; fi
+            api_health=$(docker inspect --format '{{.State.Health.Status}}' "$api_id")
+            if [ "$api_health" = healthy ]; then break; fi
             sleep 2
           done
+          if [ "$api_health" != healthy ]; then
+            docker compose --profile security-test logs api egress-proxy
+            echo "API failed its readiness healthcheck"
+            exit 1
+          fi
           status=$(curl --silent --show-error --output /tmp/egress-response.json --write-out '%{http_code}' \
             --header 'Authorization: Bearer ci-test-token-that-is-long-enough-for-production-123456' \
             --header 'Content-Type: application/json' \
